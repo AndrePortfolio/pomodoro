@@ -1,0 +1,1 @@
+1. When I close the page it should logout and next time I open must login.

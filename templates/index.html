@@ -1,40 +1,17 @@
 {% extends "layout.html" %}
 
 {% block title %}
-	Portfolio
+	Home
 {% endblock %}
 
 {% block main %}
-	<table class="table table-striped">
-		<thead>
-			<tr>
-				<th>Symbol</th>
-				<th>Shares</th>
-				<th>Price</th>
-				<th>TOTAL</th>
-			</tr>
-		</thead>
-		<tbody>
-			{% for item in portfolio %}
-				<tr>
-					<td>{{ item.symbol }}</td>
-					<td>{{ item.shares }}</td>
-					<td>${{ '{:,.2f}'.format(item.price) }}</td>
-					<td>${{ '{:,.2f}'.format(item.stock_total) }}</td>
-				</tr>
-			{% endfor %}
-			<tr>
-				<td></td>
-				<td></td>
-				<td>Cash</td>
-				<td>${{ '{:,.2f}'.format(cash) }}</td>
-			</tr>
-			<tr>
-				<td></td>
-				<td></td>
-				<td>TOTAL</td>
-				<td>${{ '{:,.2f}'.format(total) }}</td>
-			</tr>
-		</tbody>
-	</table>
+	<form action="/home" method="post">
+		<div class="container">
+			<div class="tomato-container" style="background-image: url('{{ url_for('static', filename='images/tomato.png') }}');">
+				<input type="number" id="minutes" min="1" value="25">
+				<button class="btn btn-primary" type="submit" id="startButton">Start</button>
+			</div>
+		</div>
+	</form>
 {% endblock %}
+

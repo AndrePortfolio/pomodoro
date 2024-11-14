@@ -5,13 +5,32 @@
 {% endblock %}
 
 {% block main %}
-	<form action="/home" method="post">
-		<div class="container">
-			<div class="tomato-container" style="background-image: url('{{ url_for('static', filename='images/tomato.png') }}');">
-				<input type="number" id="minutes" min="1" value="25">
-				<button class="btn btn-primary" type="submit" id="startButton">Start</button>
-			</div>
+
+	<div class="container">
+
+		<div class="tomato-container"
+			style="background-image: url('{{ url_for('static', filename='images/tomato.png') }}');"
+			onclick="addMinutes(5)">
+
+			<div id="timer" class="timer-display"></div>
+
+			<img src="{{ url_for('static', filename='images/plus.png') }}"
+				class="plus-image" alt="Add 5 minutes" onclick="changeTime(5)">
+			<img src="{{ url_for('static', filename='images/minus.png') }}"
+				class="minus-image" alt="Subtract 5 minutes" onclick="changeTime(-5)">
+
 		</div>
-	</form>
+		<div class="control-buttons">
+			<img src="{{ url_for('static', filename='images/start.png') }}"
+				class="control-btn" alt="start" onclick="startTime()">
+			<img src="{{ url_for('static', filename='images/pause.png') }}"
+				class="control-btn" alt="pause" onclick="pauseTime()">
+			<img src="{{ url_for('static', filename='images/stop.png') }}"
+				class="control-btn" alt="stop" onclick="stopTime()">
+		</div>
+
+	</div>
+	<script src="{{ url_for('static', filename='js/buttons.js') }}"></script>
+
 {% endblock %}
 

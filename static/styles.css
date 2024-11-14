@@ -22,10 +22,14 @@ nav .navbar-brand .green
     color: #2e944b;
 }
 
+.nav-img {
+    height: 1.5em;
+    vertical-align: middle;
+}
+
 body {
     font-family: Arial, sans-serif;
     text-align: center;
-    margin-top: 50px;
 }
 
 .container {
@@ -54,20 +58,52 @@ button:hover {
 
 .tomato-container {
     position: relative;
-    width: 300px;
-    height: 300px;
-    background-size: cover;
+    width: 350px;
+    height: 350px;
+    background-size: contain;
     background-position: center;
-    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-repeat: no-repeat;
 }
+
+.plus-image, .minus-image {
+    position: absolute;
+    width: 60px;
+    cursor: pointer;
+  }
+
+.plus-image {
+    bottom: 40px; /* Adjust the position as needed */
+    right: 70px;  /* Adjust the position as needed */
+}
+
+.minus-image {
+    bottom: 40px; /* Adjust the position as needed */
+    right: 170px;  /* Adjust the position as needed */
+}
+
 
 .timer-display {
     position: absolute;
-    top: 50%;
-    left: 50%;
+    top: 45%;
+    left: 45%;
     transform: translate(-50%, -50%);
     font-size: 2em;
     color: white;
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.control-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 10px; /* Adjust the space between the timer and the buttons */
+}
+
+.control-buttons img {
+    width: 60px;
+    cursor: pointer;
 }
 

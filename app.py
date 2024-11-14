@@ -25,6 +25,7 @@ def after_request(response):
 	response.headers["Pragma"] = "no-cache"
 	return response
 
+
 # Define a route for the root URL ("/")
 @app.route('/')
 def index():
@@ -98,19 +99,11 @@ def logout():
 	return redirect("/")
 
 
-@app.route("/home", methods=["GET", "POST"])
+@app.route("/home")
 @login_required
 def start():
 	"""Starts the clock"""
-	if request.method == "POST":
-		return redirect(url_for('session_'))
 	return render_template("index.html")
-
-
-@app.route('/session')
-@login_required
-def session_():
-	return render_template("session.html")
 
 
 if __name__ == '__main__':

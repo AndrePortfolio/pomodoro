@@ -1,0 +1,27 @@
+/* Size for brand */
+nav .navbar-brand
+{
+    padding: 10px;
+    font-size: xx-large;
+}
+
+nav .navbar-brand .green
+{
+    color: rgba(7, 36, 124, 0.6);
+}
+
+nav {
+    background-color: rgba(30, 119, 201, 0.3); /* Low-intensity light red */
+    background-image: none;
+    position: relative; /* Ensure navbar is in its own context */
+    z-index: 10;
+}
+
+.nav-img {
+    height: 1.5em;
+    vertical-align: middle;
+}
+
+.navbar-brand:hover {
+    transform: scale(1.05);
+}

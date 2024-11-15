@@ -1,0 +1,50 @@
+.charts-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.chart-container {
+    width: 80%;
+    margin: 20px auto; /* Adds spacing between the charts */
+    display: flex;
+    align-items: center; /* Centers content horizontally */
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.statistics {
+    display: flex; /* Arrange items horizontally */
+    flex-direction: column; /* Stack them vertically */
+    align-items: center; /* Center items horizontally */
+    gap: 1rem; /* Add spacing between items */
+    margin: 2rem 0; /* Space around the statistics block */
+    padding: 1.5rem;
+    background-color: #f9f9f9; /* Light background for contrast */
+    border-radius: 10px; /* Rounded corners */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+    width: 90%; /* Adjust size to fit page */
+    max-width: 400px; /* Limit maximum width */
+}
+
+.stat-item {
+    display: flex; /* Align title and value side by side */
+    justify-content: space-between; /* Spread out title and value */
+    width: 100%; /* Take full width of the container */
+    font-family: 'Arial', sans-serif; /* Modern font */
+    font-size: 1.2rem; /* Increase font size */
+    color: #333; /* Neutral text color */
+}
+
+.stat-title {
+    font-weight: bold; /* Highlight the title */
+    color: #555; /* Slightly lighter color for titles */
+}
+
+.stat-value {
+    color: #ff6347; /* Tomato color for a thematic look */
+    font-weight: bold;
+}

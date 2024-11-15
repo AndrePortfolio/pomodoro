@@ -4,6 +4,7 @@ from cs50 import SQL
 from werkzeug.security import check_password_hash, generate_password_hash
 from datetime import datetime
 from flask_session import Session
+import calendar
 from helpers import apology, login_required, lookup, is_int
 
 # Create a Flask application instance<
@@ -101,9 +102,44 @@ def logout():
 
 @app.route("/home")
 @login_required
-def start():
-	"""Starts the clock"""
+def home():
+	"""Displays home page"""
 	return render_template("index.html")
+
+
+@app.route("/statistics")
+@login_required
+def statistics():
+	"""Displayes statistics"""
+	return render_template("statistics.html")
+
+
+@app.route("/calendar")
+@login_required
+def _calendar():
+	"""Displays a calendar"""
+	year = datetime.now().year
+	months = []
+
+	for month in range(1, 13):
+		month_name = calendar.month_name[month]
+		_, days_in_month = calendar.monthrange(year, month)
+		first_weekday = calendar.monthrange(year, month)[0]  # Weekday of the first day of the month
+		months.append({
+			'name': month_name,
+			'days': days_in_month,
+			'first_weekday': first_weekday
+		})
+
+	return render_template('calendar.html', year=year, months=months)
+
+
+
+@app.route("/leaderboard")
+@login_required
+def leaderboard():
+	"""Displays the leaderboard"""
+	return render_template("leaderboard.html")
 
 
 @app.route("/save-session", methods=["POST"])

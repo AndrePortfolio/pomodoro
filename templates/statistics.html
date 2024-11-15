@@ -1,0 +1,50 @@
+{% extends "layout.html" %}
+
+{% block title %}
+	Statistics
+{% endblock %}
+
+{% block main %}
+	<div class="charts-container container">
+		<!-- Daily Work Chart -->
+		<div class="chart-container">
+			<canvas id="dailyChart"></canvas>
+		</div>
+
+		<!-- Weekly Work Chart -->
+		<div class="chart-container">
+			<canvas id="weeklyChart"></canvas>
+		</div>
+
+		<!-- Monthly Work Chart -->
+		<div class="chart-container">
+			<canvas id="monthlyChart"></canvas>
+		</div>
+
+		<!-- Yearly Work Chart -->
+		<div class="chart-container">
+			<canvas id="yearlyChart"></canvas>
+		</div>
+	</div>
+	<div class="statistics">
+		<div class="stat-item">
+			<span class="stat-title">Sessions Completed:</span>
+			<span class="stat-value">10</span>
+		</div>
+		<div class="stat-item">
+			<span class="stat-title">Avg Time:</span>
+			<span class="stat-value">4h:30 min</span>
+		</div>
+		<div class="stat-item">
+			<span class="stat-title">Total Time:</span>
+			<span class="stat-value">250 min</span>
+		</div>
+		<div class="stat-item">
+			<span class="stat-title">Longest Session:</span>
+			<span class="stat-value">30 min</span>
+		</div>
+	</div>
+	<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+	<script src="{{ url_for('static', filename='js/charts.js') }}"></script>
+{% endblock %}
+

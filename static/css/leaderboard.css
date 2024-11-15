@@ -1,0 +1,69 @@
+/* Leaderboard container */
+.leaderboard {
+    width: 100%;
+    max-width: 600px;
+    margin: 2rem auto;
+    background-color: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    font-family: 'Arial', sans-serif;
+    overflow: hidden;
+}
+
+/* Leaderboard title */
+.leaderboard h2 {
+    text-align: center;
+    background-color: #ff6347; /* Tomato theme */
+    color: white;
+    padding: 1rem;
+    margin: 0;
+}
+
+/* Header row styling */
+.leaderboard-header {
+    display: grid;
+    grid-template-columns: 1fr 2fr 2fr;
+    background-color: #ffeadb;
+    font-weight: bold;
+    padding: 0.5rem;
+    text-align: left;
+    color: #333;
+}
+
+/* Data rows */
+.leaderboard-rows {
+    display: flex;
+    flex-direction: column;
+}
+
+.leaderboard-row {
+    display: grid;
+    grid-template-columns: 1fr 2fr 2fr;
+    padding: 0.5rem;
+    border-bottom: 1px solid #f0f0f0;
+    align-items: center;
+}
+
+.leaderboard-row:nth-child(odd) {
+    background-color: #f9f9f9;
+}
+
+/* Highlight top rank */
+.leaderboard-row:first-child {
+    background-color: #ff6347;
+    color: white;
+    font-weight: bold;
+}
+
+.rank, .user, .time {
+    padding: 0 0.5rem;
+    text-align: left;
+}
+
+.rank {
+    text-align: center;
+}
+
+.time {
+    text-align: right;
+}

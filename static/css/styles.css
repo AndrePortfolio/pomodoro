@@ -1,0 +1,61 @@
+
+
+body {
+    background-color: white;
+    background-image: radial-gradient(circle, rgba(255, 0, 0, 0.3) 1px, transparent 1px);
+    background-size: 20px 20px;
+    background-position: center;
+}
+
+/* Center wrapper in viewport */
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Stack tomato container and control buttons vertically */
+.tomato-wrapper {
+    position: absolute; /* Position relative to the page */
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -60%); /* Adjust to center itself */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.tomato-container {
+    position: relative;
+    width: 500px;
+    height: 500px;
+    background-size: contain;
+    background-position: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-repeat: no-repeat;
+}
+
+
+#timer {
+    font-size: 3em;
+    margin: 20px;
+}
+
+.timer-display {
+    position: absolute;
+    top: 45%;
+    left: 45%;
+    transform: translate(-50%, -50%);
+    font-size: 2em;
+    color: white;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+
+/* Style plus and minus images */
+.plus-image, .minus-image {
+    width: 60px;
+    cursor: pointer;
+}

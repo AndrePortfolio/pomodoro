@@ -33,6 +33,9 @@
 		</div>
 
 	</div>
+	<audio id="ticktac-sound" preload="auto" loop>
+		<source src="{{ url_for('static', filename='sounds/tictac.wav') }}" type="audio/wav">
+	</audio>
 	<script src="{{ url_for('static', filename='js/buttons.js') }}"></script>
 
 {% endblock %}

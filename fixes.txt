@@ -3,3 +3,4 @@
 	with a button with new session if you want to start a new one.
 3. Add a feature that if time completes it rings, but the timer continues running.
 	a session only really finished if the person closes it.
+4. Sound is weird, needs a fiz.

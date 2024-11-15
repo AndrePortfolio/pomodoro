@@ -4,6 +4,7 @@ let timerRunning = false;
 let sessionRunning = false;
 let timerInterval;
 let sessionLength;
+const tickTockSound = document.getElementById("ticktac-sound");
 
 // Function to change time on button click
 function changeTime(seconds)
@@ -23,6 +24,7 @@ function startTime()
 {
 	if (!timerRunning)
 	{
+		tickTockSound.play();
 		timerInterval = setInterval(decrementTime, 1000);
 		timerRunning = true;
 		if (!sessionRunning)
@@ -38,6 +40,8 @@ function pauseTime()
 {
 	if (timerRunning)
 	{
+		tickTockSound.pause();
+		tickTockSound.currentTime = 0;
 		clearInterval(timerInterval); // Stop the timer interval
 		timerRunning = false;
 	}

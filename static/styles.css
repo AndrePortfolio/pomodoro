@@ -32,9 +32,18 @@ body {
     text-align: center;
 }
 
+/* Center wrapper in viewport */
 .container {
-    width: 300px;
-    margin: 0 auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Stack tomato container and control buttons vertically */
+.tomato-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 #timer {
@@ -68,23 +77,6 @@ button:hover {
     background-repeat: no-repeat;
 }
 
-.plus-image, .minus-image {
-    position: absolute;
-    width: 60px;
-    cursor: pointer;
-  }
-
-.plus-image {
-    bottom: 40px; /* Adjust the position as needed */
-    right: 70px;  /* Adjust the position as needed */
-}
-
-.minus-image {
-    bottom: 40px; /* Adjust the position as needed */
-    right: 170px;  /* Adjust the position as needed */
-}
-
-
 .timer-display {
     position: absolute;
     top: 45%;
@@ -99,11 +91,25 @@ button:hover {
     display: flex;
     justify-content: center;
     gap: 10px;
-    margin-top: 10px; /* Adjust the space between the timer and the buttons */
 }
 
 .control-buttons img {
     width: 60px;
     cursor: pointer;
+}
+
+/* Style plus and minus images */
+.plus-image, .minus-image {
+    width: 60px;
+    cursor: pointer;
+}
+
+.adjustment-buttons {
+    position: absolute;
+    bottom: 40px; /* Adjust as needed to control the vertical position */
+    display: flex;
+    gap: 20px;
+    align-items: center;
+    justify-content: center;
 }
 

@@ -8,25 +8,29 @@
 
 	<div class="container">
 
-		<div class="tomato-container"
-			style="background-image: url('{{ url_for('static', filename='images/tomato.png') }}');"
-			onclick="addMinutes(5)">
+		<div class="tomato-wrapper">
+			<div class="tomato-container"
+				style="background-image: url('{{ url_for('static', filename='images/tomato.png') }}');"
+				onclick="addMinutes(5)">
 
-			<div id="timer" class="timer-display"></div>
+				<div id="timer" class="timer-display"></div>
 
-			<img src="{{ url_for('static', filename='images/plus.png') }}"
-				class="plus-image" alt="Add 5 minutes" onclick="changeTime(5)">
-			<img src="{{ url_for('static', filename='images/minus.png') }}"
-				class="minus-image" alt="Subtract 5 minutes" onclick="changeTime(-5)">
+				<div class="adjustment-buttons">
+					<img src="{{ url_for('static', filename='images/plus.png') }}"
+						class="plus-image" alt="Add 5 minutes" onclick="changeTime(5)">
+					<img src="{{ url_for('static', filename='images/minus.png') }}"
+						class="minus-image" alt="Subtract 5 minutes" onclick="changeTime(-5)">
+				</div>
+			</div>
 
-		</div>
-		<div class="control-buttons">
-			<img src="{{ url_for('static', filename='images/start.png') }}"
-				class="control-btn" alt="start" onclick="startTime()">
-			<img src="{{ url_for('static', filename='images/pause.png') }}"
-				class="control-btn" alt="pause" onclick="pauseTime()">
-			<img src="{{ url_for('static', filename='images/stop.png') }}"
-				class="control-btn" alt="stop" onclick="stopTime()">
+			<div class="control-buttons">
+				<img src="{{ url_for('static', filename='images/start.png') }}"
+					class="control-btn" alt="start" onclick="startTime()">
+				<img src="{{ url_for('static', filename='images/pause.png') }}"
+					class="control-btn" alt="pause" onclick="pauseTime()">
+				<img src="{{ url_for('static', filename='images/stop.png') }}"
+					class="control-btn" alt="stop" onclick="stopTime()">
+			</div>
 		</div>
 
 	</div>

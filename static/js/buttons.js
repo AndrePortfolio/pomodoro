@@ -3,6 +3,8 @@ let timerMinutes = 25;
 let timerSeconds = 0;
 let timerRunning = false;
 let timerInterval;
+let sessionLength;
+let timeElapsed = 0;
 
 // Function to change time on button click
 function changeTime(minutes)
@@ -24,6 +26,7 @@ function startTime()
 	{
 		timerInterval = setInterval(decrementTime, 1000);
 		timerRunning = true;
+		sessionLenght = timerMinutes;
 	}
 }
 
@@ -34,6 +37,7 @@ function pauseTime()
 	{
 		clearInterval(timerInterval); // Stop the timer interval
 		timerRunning = false;
+		timeElapsed = (sessionLength * 60) - (timerMinutes * 60 + timerSeconds);
 	}
 }
 
@@ -42,9 +46,11 @@ function stopTime()
 {
 	clearInterval(timerInterval);
 	timerRunning = false;
+	timeElapsed = (sessionLength * 60) - (timerMinutes * 60 + timerSeconds);
 	timerMinutes = 25;
 	timerSeconds = 0;
 	updateTimerDisplay();
+	saveSessionTime();
 }
 
 // Decrement the time by 1 second
@@ -57,6 +63,7 @@ function decrementTime()
 			clearInterval(timerInterval);
 			timerRunning = false;
 			alert("Session Complete!");
+			saveSessionTime();
 			return;
 		}
 		timerMinutes--;
@@ -79,6 +86,33 @@ function updateTimerDisplay()
 
 	// Update the innerText of the timer element
 	timerElement.innerText = `${minutesString}:${secondsString}`;
+}
+
+// Function to send session time to the backend
+function saveSessionTime()
+{
+	const sessionTime = (sessionLength * 60) - timeElapsed;
+
+	// Send a POST request to save the time in the database
+	fetch("/save-session", {
+		method: "POST",
+		headers: {
+			"Content-Type": "application/json"
+		},
+		body: JSON.stringify({
+			time: sessionTime
+		})
+	})
+	.then(response => response.json())
+	.then(data => {
+		if (data.success)
+			console.log("Session time saved successfully.");
+		else
+			console.log("Error saving session time.");
+	})
+	.catch(error => {
+		console.error("Error:", error);
+	});
 }
 
 // Initialize the timer display on page load

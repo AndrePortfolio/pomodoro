@@ -106,5 +106,26 @@ def start():
 	return render_template("index.html")
 
 
+@app.route("/save-session", methods=["POST"])
+@login_required
+def save_session_time():
+	"""Save the Pomodoro session time to the database"""
+	if request.method == "POST":
+		data = request.get_json()  # Get the JSON data from the request
+		session_time = data.get("time")  # Time in seconds
+
+		if session_time is None:
+			return {"success": False, "message": "No time provided"}, 400
+
+		# Insert the session time into the database
+		user_id = session["user_id"]
+		timestamp = datetime.now()
+
+		db.execute("INSERT INTO sessions (user_id, session_time, timestamp) VALUES (?, ?, ?)", user_id, session_time, timestamp)
+
+		return {"success": True}, 200
+
+
+
 if __name__ == '__main__':
 	app.run(debug=False, use_reloader=False)

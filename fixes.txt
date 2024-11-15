@@ -1,1 +1,5 @@
 1. When I close the page it should logout and next time I open must login.
+2. When I stop working session should open a page like great job and some stats,
+	with a button with new session if you want to start a new one.
+3. Add a feature that if time completes it rings, but the timer continues running.
+	a session only really finished if the person closes it.

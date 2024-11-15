@@ -10,7 +10,7 @@
 		<title>Pomodoro: {% block title %}{% endblock %}</title>
 	</head>
 	<body>
-		<nav class="bg-light body navbar navbar-expand-md navbar-light ">
+		<nav class="navbar navbar-expand-md navbar-light">
 			<div class="container-fluid">
 				<a class="navbar-brand" href="/">
 					<span class="green">P</span>
@@ -28,17 +28,17 @@
 				<div class="collapse navbar-collapse" id="navbar">
 					{% if session["user_id"] %}
 						<ul class="navbar-nav me-auto mt-2">
-							<li class="nav-item"><a class="nav-link" href="/statistics">Statistics</a></li>
-							<li class="nav-item"><a class="nav-link" href="/calendar">Calendar</a></li>
-							<li class="nav-item"><a class="nav-link" href="/leaderboard">Leaderboard</a></li>
+							<li class="nav-item"><a class="btn" href="/statistics">Statistics</a></li>
+							<li class="nav-item"><a class="btn" href="/calendar">Calendar</a></li>
+							<li class="nav-item"><a class="btn" href="/leaderboard">Leaderboard</a></li>
 						</ul>
 						<ul class="navbar-nav ms-auto mt-2">
-							<li class="nav-item"><a class="nav-link" href="/logout">Log Out</a></li>
+							<li class="nav-item"><a class="btn" href="/logout">Log Out</a></li>
 						</ul>
 					{% else %}
 						<ul class="navbar-nav ms-auto mt-2">
-							<li class="nav-item"><a class="nav-link" href="/register">Register</a></li>
-							<li class="nav-item"><a class="nav-link" href="/login">Log In</a></li>
+							<li class="nav-item"><a class="btn" href="/register">Register</a></li>
+							<li class="nav-item"><a class="btn" href="/login">Log In</a></li>
 						</ul>
 					{% endif %}
 				</div>

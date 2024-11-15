@@ -1,25 +1,20 @@
 /* Size for brand */
 nav .navbar-brand
 {
+    padding: 10px;
     font-size: xx-large;
 }
 
-/* Colors for brand */
-nav .navbar-brand .blue
-{
-    color: #537fbe;
-}
-nav .navbar-brand .red
-{
-    color: #ea433b;
-}
-nav .navbar-brand .yellow
-{
-    color: #f5b82e;
-}
 nav .navbar-brand .green
 {
     color: #2e944b;
+}
+
+nav {
+    background-color: rgba(234, 67, 59, 0.2); /* Low-intensity light red */
+    background-image: none;
+    position: relative; /* Ensure navbar is in its own context */
+    z-index: 10;
 }
 
 .nav-img {
@@ -27,9 +22,15 @@ nav .navbar-brand .green
     vertical-align: middle;
 }
 
+.navbar-brand:hover {
+    transform: scale(1.05);
+}
+
 body {
-    font-family: Arial, sans-serif;
-    text-align: center;
+    background-color: white;
+    background-image: radial-gradient(circle, rgba(255, 0, 0, 0.3) 1px, transparent 1px);
+    background-size: 20px 20px;
+    background-position: center;
 }
 
 /* Center wrapper in viewport */
@@ -106,10 +107,37 @@ button:hover {
 
 .adjustment-buttons {
     position: absolute;
-    bottom: 40px; /* Adjust as needed to control the vertical position */
+    bottom: 60px; /* Adjust as needed to control the vertical position */
     display: flex;
     gap: 20px;
     align-items: center;
     justify-content: center;
 }
 
+.play-buttons:hover {
+    transform: scale(1.1);
+}
+
+.btn {
+    border-radius: 50px; /* Rounded corners */
+    padding: 10px 20px; /* Internal padding for the buttons */
+    background-color: rgb(132, 218, 122); /* Blue background color for visibility */
+    color: rgb(39, 38, 38); /* Text color */
+    border: none; /* Removes default border */
+    font-weight: bold; /* Makes text bold */
+    cursor: pointer; /* Changes cursor to pointer on hover */
+    transition: background-color 0.3s, transform 0.2s; /* Smooth transition on hover */
+    text-align: center;
+    text-decoration: none; /* Ensures no underline for links */
+    display: inline-block; /* Ensures the element behaves like a button */
+    text-transform: uppercase; /* Makes the text uppercase */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.btn:hover {
+    transform: scale(1.2); /* Slightly enlarge the button on hover */
+}
+
+.btn:focus {
+    outline: none; /* Removes the focus outline */
+}

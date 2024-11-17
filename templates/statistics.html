@@ -8,7 +8,7 @@
 	<div class="charts-container container">
 		<!-- Daily Work Chart -->
 		<div class="chart-container">
-			<canvas id="dailyChart"></canvas>
+			<canvas id="dailyChart" width="400" height="400"></canvas>
 		</div>
 
 		<!-- Weekly Work Chart -->
@@ -29,22 +29,28 @@
 	<div class="statistics">
 		<div class="stat-item">
 			<span class="stat-title">Sessions Completed:</span>
-			<span class="stat-value">10</span>
+			<span class="stat-value">{{ daily|length }}</span>
 		</div>
 		<div class="stat-item">
 			<span class="stat-title">Avg Time:</span>
-			<span class="stat-value">4h:30 min</span>
+			<span class="stat-value">{{ (daily|map(attribute='session_time')|sum) / daily|length }} min</span>
 		</div>
 		<div class="stat-item">
 			<span class="stat-title">Total Time:</span>
-			<span class="stat-value">250 min</span>
+			<span class="stat-value">{{ daily|map(attribute='session_time')|sum }} min</span>
 		</div>
 		<div class="stat-item">
 			<span class="stat-title">Longest Session:</span>
-			<span class="stat-value">30 min</span>
+			<span class="stat-value">{{ daily|map(attribute='session_time')|max }} min</span>
 		</div>
 	</div>
 	<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-	<script src="{{ url_for('static', filename='js/charts.js') }}"></script>
+	<script>
+		const dayData = {{ daily | tojson }};
+		const weekData = {{ weekly | tojson }};
+		const monthData = {{ monthly | tojson }};
+		const yearData = {{ yearly | tojson }};
+	</script>
+	<script src="{{ url_for('static', filename='js/statistics.js') }}" defer></script>
 {% endblock %}
 

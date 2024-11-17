@@ -4,6 +4,7 @@ from flask_session import Session
 from blueprints.auth import auth_bp
 from blueprints.main import main_bp
 
+
 # Initialize Flask app
 app = Flask(__name__)
 app.config["SESSION_PERMANENT"] = False

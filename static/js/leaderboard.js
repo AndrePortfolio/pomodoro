@@ -9,15 +9,15 @@ leaderboardRows.innerHTML = ""; // Clear all static rows
 
 // Add users dynamically
 users.forEach((user, index) => {
-    const row = document.createElement("div");
-    row.classList.add("leaderboard-row");
+	const row = document.createElement("div");
+	row.classList.add("leaderboard-row");
 
-    row.innerHTML = `
-        <div class="rank">${index + 1}</div>
-        <div class="user">${user.name}</div>
-        <div class="time">${user.time}</div>
-    `;
+	row.innerHTML = `
+		<div class="rank">${index + 1}</div>
+		<div class="user">${user.name}</div>
+		<div class="time">${user.time}</div>
+	`;
 
-    leaderboardRows.appendChild(row);
+	leaderboardRows.appendChild(row);
 });
 

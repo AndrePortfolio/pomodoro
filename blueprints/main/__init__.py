@@ -1,5 +1,5 @@
 from flask import Blueprint, render_template, session, url_for, redirect, request
-from datetime import datetime
+from datetime import datetime, timedelta
 from cs50 import SQL
 from helpers import login_required
 from .calendar import calendar_bp
@@ -41,9 +41,10 @@ def save_session_time():
 
 		# Insert the session time into the database
 		user_id = session["user_id"]
-		timestamp = datetime.now()
+		end_timestamp = datetime.now()
+		start_timestamp = end_timestamp - timedelta(seconds=session_time)
 
-		db.execute("INSERT INTO sessions (user_id, session_time, timestamp) VALUES (?, ?, ?)", user_id, session_time, timestamp)
+		db.execute("INSERT INTO sessions (user_id, session_time, timestamp) VALUES (?, ?, ?)", user_id, session_time, start_timestamp)
 
 		return {"success": True}, 200
 

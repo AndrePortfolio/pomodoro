@@ -1,4 +1,3 @@
-weekSessions = weekData.map(session => session.session_time);
 monthSessions = monthData.map(session => session.session_time);
 yearSessions = yearData.map(session => session.session_time);
 
@@ -7,11 +6,14 @@ console.log(weekData.map(session => session.session_time));
 console.log(monthData.map(session => session.session_time));
 console.log(yearData.map(session => session.session_time));
 
-sessionFinish = dayData.map(session => session.timestamp);
-todaySessions = dayData.map(session => session.session_time);
+// Array to store timeline data (working and non-working periods)
+const timelineSegments = [];
 
 // Constants for the day
 const SECONDS_IN_A_DAY = 86400;
+const SECONDS_IN_AN_HOUR = 3600;
+const SLEEP_START = 23 * SECONDS_IN_AN_HOUR;
+const SLEEP_END = 7 * SECONDS_IN_AN_HOUR;
 const DEGREE_PER_SECOND = 360 / SECONDS_IN_A_DAY;
 
 // Convert timestamp to Unix timestamp (seconds)
@@ -21,29 +23,53 @@ function convertToUnixTimestamp(timestamp)
 	return Math.floor(date.getTime() / 1000); // Convert to seconds
 }
 
-// Array to store timeline data (working and non-working periods)
-const timelineSegments = [];
-
 // Sort sessions by timestamp to ensure proper sequence
 dayData.sort((a, b) => new Date(a.timestamp) - new Date(b.timestamp));
 
 // Start tracking from midnight (0 seconds)
-let lastEnd = 0; // Keeps track of the end of the last session
+let lastEnd = 0;
 
 // Loop through each session
 dayData.forEach((session) => {
 	const startTime = convertToUnixTimestamp(session.timestamp) % SECONDS_IN_A_DAY;
 	const finishTime = startTime + session.session_time;
 
-	// Add a non-working segment if there is a gap
-	if (startTime > lastEnd)
-	{
+	// Add sleep and non-working segment at the beginning of the day
+	if (lastEnd === 0 && startTime > SLEEP_END) {
+		if (SLEEP_START > 0 && (SLEEP_START < SLEEP_END))
+		{
+			// Add not-working segment
+			timelineSegments.push({
+				degrees: SLEEP_START * DEGREE_PER_SECOND,
+				color: 'rgba(200, 200, 200, 0.3)' // Sleep color
+			});
+			// Add sleep segment
+			timelineSegments.push({
+				degrees: (SLEEP_END - SLEEP_START) * DEGREE_PER_SECOND,
+				color: 'rgba(128, 0, 128, 0.5)' // Sleep color
+			});
+		}
+		else
+		{
+			// Add sleep segment
+			timelineSegments.push({
+				degrees: SLEEP_END * DEGREE_PER_SECOND,
+				color: 'rgba(128, 0, 128, 0.5)' // Sleep color
+			});
+		}
+		// Add non-working segment after sleep
 		timelineSegments.push({
-		degrees: (startTime - lastEnd) * DEGREE_PER_SECOND,
-		color: 'rgba(200, 200, 200, 0.3)' // Non-working color
+			degrees: (startTime - SLEEP_END) * DEGREE_PER_SECOND,
+			color: 'rgba(200, 200, 200, 0.3)' // Non-working color
 		});
 	}
-
+	else if (startTime > lastEnd) {
+		// Add non-working segment if there is a gap
+		timelineSegments.push({
+			degrees: (startTime - lastEnd) * DEGREE_PER_SECOND,
+			color: 'rgba(200, 200, 200, 0.3)' // Non-working color
+		});
+	}
 	// Add the working segment
 	timelineSegments.push({
 		degrees: session.session_time * DEGREE_PER_SECOND,
@@ -51,21 +77,40 @@ dayData.forEach((session) => {
 	});
 
 	// Update the last end time
-	lastEnd = finishTime;
+	lastEnd = finishTime
 });
 
-// Add the final non-working segment if the last session doesn't end at midnight
-if (lastEnd < SECONDS_IN_A_DAY)
+if (SLEEP_START > SLEEP_END)
 {
-	timelineSegments.push({
-		degrees: (SECONDS_IN_A_DAY - lastEnd) * DEGREE_PER_SECOND,
-		color: 'rgba(200, 200, 200, 0.3)' // Non-working color
-	});
+	// Add the final non-working segment if the last session doesn't end at midnight
+	if (lastEnd < SECONDS_IN_A_DAY) {
+		timelineSegments.push({
+			degrees: (SLEEP_START - lastEnd) * DEGREE_PER_SECOND,
+			color: 'rgba(200, 200, 200, 0.3)' // Non-working color
+		});
+	}
+	if (lastEnd < SECONDS_IN_A_DAY) {
+		timelineSegments.push({
+			degrees: (SECONDS_IN_A_DAY - SLEEP_START) * DEGREE_PER_SECOND,
+			color: 'rgba(128, 0, 128, 0.5)' // Sleep color
+		});
+	}
+}
+else
+{
+	// Add the final non-working segment if the last session doesn't end at midnight
+	if (lastEnd < SECONDS_IN_A_DAY) {
+		timelineSegments.push({
+			degrees: (SECONDS_IN_A_DAY - lastEnd) * DEGREE_PER_SECOND,
+			color: 'rgba(200, 200, 200, 0.3)' // Non-working color
+		});
+	}
 }
 
 const afterDrawPlugin = {
 	id: 'afterDrawPlugin', // Unique ID for the plugin
 	afterDraw: function(chart) {
+		if (chart.canvas.id !== 'dailyChart') return;
 		const ctx = chart.ctx;
 
 		// Calculate the center of the chart (pie)
@@ -92,9 +137,9 @@ const afterDrawPlugin = {
 			0,					// 06:00
 			Math.PI / 4,		// 09:00
 			Math.PI / 2,		// 12:00
-			-3 * Math.PI / 4,	// 15:00
-			Math.PI,			// 18:00
 			3 * Math.PI / 4,	// 15:00
+			Math.PI,			// 18:00
+			-3 * Math.PI / 4,	// 21:00
 		];
 		// Loop through each hour and place it at the correct angle
 		hours.forEach((hour, index) => {
@@ -112,7 +157,7 @@ const afterDrawPlugin = {
 			ctx.fillText(hour, x, y);
 
 			// Calculate the starting point of the line (3/4 of the way to the outer edge)
-			let		lineStartRadius = radius * 0.75; // Start 3/4 of the way
+			let		lineStartRadius = 0; // Start 3/4 of the way
 			const	lineEndRadius = radius - 21; // End at the outer edge
 
 			if (hour === '00:00' || hour === '12:00' || hour === '06:00' || hour === '18:00')
@@ -139,55 +184,131 @@ const afterDrawPlugin = {
 // Register the custom plugin in Chart.js
 Chart.register(afterDrawPlugin);
 
-// Debugging: Log the timeline segments
-console.log(timelineSegments);
+// Define the colors to labels mapping
+const colorToLabel = {
+	'rgba(128, 0, 128, 0.5)': 'Sleep', // Sleep color
+	'rgba(200, 200, 200, 0.3)': 'Free Time', // Non-working color
+	'rgba(75, 192, 192, 1)': 'Working Sessions' // Working color
+};
+
+// Map the timelineSegments colors to labels
+const uniqueLabels = [...new Set(timelineSegments.map(segment => colorToLabel[segment.color] || 'Unknown'))];
 
 const dailyChart = new Chart(document.getElementById('dailyChart'), {
 	type: 'pie',
-		data: {
+	data: {
+		labels: uniqueLabels,
 		datasets: [{
 			data: timelineSegments.map(segment => segment.degrees),
 			backgroundColor: timelineSegments.map(segment => segment.color),
 			borderColor: 'rgba(255, 255, 255, 0.5)',
 			borderWidth: 1
-		}],
-		labels: ['Free Time', 'Working Sessions']
-		},
-		options: {
-			responsive: true,
-			maintainAspectRatio: true, // Ensures the chart stays circular
-			plugins: {
-				title: {
-					display: true,
-					text: 'Today\' Work Sessions',
-					position: 'top',
-					padding: {
-						bottom: 30 // Adds a little padding at the bottom for spacing
-					}
-				},
-				legend: {
-					display: true,  // Displays the legend
-					position: 'bottom',  // Positioning of the legend (default is 'top')
-					labels: {
-						boxWidth: 20,  // Size of the boxes next to the legend items
-						padding: 30    // Space between legend labels
-					},
+		}]
+	},
+	options: {
+		responsive: true,
+		maintainAspectRatio: true, // Ensures the chart stays circular
+		plugins: {
+			title: {
+				display: true,
+				text: 'Today\' Work Sessions',
+				position: 'top',
+				padding: {
+					bottom: 30 // Adds a little padding at the bottom for spacing
 				}
 			},
-		}
+			tooltip: {
+				callbacks: {
+					// Custom tooltip label function
+					label: function(tooltipItem) {
+						const segment = timelineSegments[tooltipItem.dataIndex]; // Get the corresponding segment
+						const totalSeconds = segment.degrees / DEGREE_PER_SECOND; // Convert degrees to seconds
+						const hours = Math.floor(totalSeconds / 3600); // Get the full hours
+						const minutes = Math.floor((totalSeconds % 3600) / 60); // Get the remaining minutes
+
+						// Format the time as "X hours Y minutes"
+						const formattedTime = `${hours}h ${minutes < 10 ? '0' : ''}${minutes}m`;
+
+						return `${colorToLabel[segment.color]}: ${formattedTime}`;
+					}
+				}
+			},
+			legend: {
+				display: true,
+				position: 'bottom',
+				labels: {
+					boxWidth: 20,
+					padding: 30,
+					// Ensure the legends fit on the same row
+					usePointStyle: true, // Makes the legend items circular
+					// Adjust the width of the label container to make sure they fit in one row
+					maxWidth: 200
+				},
+				// Make sure the legend items are displayed in a row
+				align: 'center', // Centers the legends
+				reverse: false,  // Do not reverse the order of legends
+				fullWidth: true
+			}
+		},
+	}
 });
 
+// Get the current date
+const currentDate = new Date();
 
+// Get the current day of the week (0 = Sunday, 1 = Monday, ..., 6 = Saturday)
+const currentDay = currentDate.getDay();
 
+// Calculate the start of the week (Monday)
+const startOfWeek = new Date(currentDate);
+startOfWeek.setDate(currentDate.getDate() - currentDay + 1); // Adjust for Monday (set to the previous Monday)
+startOfWeek.setHours(0, 0, 0, 0); // Set the time to midnight
+
+// Calculate the end of the week (Sunday)
+const endOfWeek = new Date(startOfWeek);
+endOfWeek.setDate(startOfWeek.getDate() + 6); // Sunday is 6 days after Monday
+endOfWeek.setHours(23, 59, 59, 999); // Set the time to 11:59:59 PM
+
+// Format the dates as 'Day X' (e.g., 'Day 18')
+const formatDate = (date) => `Day ${date.getDate()}`;
+
+// Set the dynamic title text
+const titleText = [
+	'This Week Focused time',
+	`( ${formatDate(startOfWeek)} - ${formatDate(endOfWeek)} )`
+];
+
+// which sessions happened on the same day, and group them by days.
+// Then, once you have the groups, you check inside of them for the sessions,
+// and sum the session times. Giving you a total amount worked on that day.
+
+// // Function to group sessions by day and calculate total session time in hours
+// function groupSessionsByDay(weekData) {
+// 	// Group sessions by day (using the date part of the timestamp)
+// 	weekSessions.forEach(session) => {
+// 		const date = new Date(session.timestamp);
+
+// 		const day = date.getDate();
+
+// 	}
+
+// 	return dailySessionsInHours;  // Return an array with the total hours per day
+// }
+
+// Call the function and store the result
+const dailySessionsInHours = groupSessionsByDay(weekData);
+
+// Log the result
+console.log(dailySessionsInHours);
 
 // Chart for weekly work
 const weeklyChart = new Chart(document.getElementById('weeklyChart'), {
 	type: 'bar',
 	data: {
-		labels: ['Week 1', 'Week 2', 'Week 3', 'Week 4'],
+		labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
 		datasets: [{
-			label: 'Hours Worked (Weekly)',
-			data: weeklyData,
+			label: 'Hours Worked (Daily)',
+			data: dailySessionsInHours,
 			backgroundColor: 'rgba(153, 102, 255, 0.2)',
 			borderColor: 'rgba(153, 102, 255, 1)',
 			borderWidth: 1
@@ -195,23 +316,71 @@ const weeklyChart = new Chart(document.getElementById('weeklyChart'), {
 	},
 	options: {
 		responsive: true,
+		maintainAspectRatio: true,
 		plugins: {
 			title: {
 				display: true,
-				text: 'Weekly Work Statistics'
+				text: titleText,
+				position: 'top',
+				padding: {
+					bottom: 30 // Adds a little padding at the bottom for spacing
+				}
+			},
+			tooltip: {
+				callbacks: {
+					// Custom tooltip label function
+					label: function(tooltipItem) {
+						// Get the index of the item in the dataset
+						const index = tooltipItem.dataIndex;
+
+						// Access the original time in seconds
+						const sessionTimeInSeconds = weekSessions[index];
+
+						// Convert the session time to hours and minutes
+						const hours = Math.floor(sessionTimeInSeconds / 3600);
+						const minutes = Math.floor((sessionTimeInSeconds % 3600) / 60);
+
+						// Format the time as "X hours Y minutes"
+						const formattedTime = `${hours}h ${minutes < 10 ? '0' : ''}${minutes}m`;
+
+						return formattedTime;
+					}
+				}
+			},
+			legend: {
+				display: true,
+				position: 'bottom',
+				labels: {
+					usePointStyle: true
+				},
+				// Make sure the legend items are displayed in a row
+				align: 'center', // Centers the legends
+				fullWidth: true
+			}
+		},
+		scales: {
+			y: {
+				min: 0,   // Ensure the y-axis starts from 0
+				max: 12,  // Set the maximum value to 16 hours
+				stepSize: 2,  // Control the step size (interval between ticks on the y-axis)
+				ticks: {
+					beginAtZero: true  // Ensures the y-axis always starts from 0
+				}
 			}
 		}
 	}
 });
 
+
+
 // Chart for monthly work
 const monthlyChart = new Chart(document.getElementById('monthlyChart'), {
 	type: 'line',
 	data: {
-		labels: ['January', 'February', 'March', 'April'],
+		labels: ['Week 1', 'Week 2', 'Week 3', 'Week 4', 'Week 5'],
 		datasets: [{
 			label: 'Hours Worked (Monthly)',
-			data: monthlyData,
+			data: monthSessions,
 			fill: false,
 			borderColor: 'rgba(54, 162, 235, 1)',
 			tension: 0.1
@@ -232,10 +401,10 @@ const monthlyChart = new Chart(document.getElementById('monthlyChart'), {
 const yearlyChart = new Chart(document.getElementById('yearlyChart'), {
 	type: 'bar',
 	data: {
-		labels: ['2021', '2022', '2023'],
+		labels: ['January', 'February', 'March'],
 		datasets: [{
 			label: 'Hours Worked (Yearly)',
-			data: yearlyData,
+			data: yearSessions,
 			backgroundColor: 'rgba(255, 159, 64, 0.2)',
 			borderColor: 'rgba(255, 159, 64, 1)',
 			borderWidth: 1

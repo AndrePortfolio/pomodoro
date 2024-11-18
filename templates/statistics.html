@@ -8,7 +8,7 @@
 	<div class="charts-container container">
 		<!-- Daily Work Chart -->
 		<div class="chart-container">
-			<canvas id="dailyChart" width="400" height="400"></canvas>
+			<canvas id="dailyChart"></canvas>
 		</div>
 
 		<!-- Weekly Work Chart -->
@@ -33,7 +33,13 @@
 		</div>
 		<div class="stat-item">
 			<span class="stat-title">Avg Time:</span>
-			<span class="stat-value">{{ (daily|map(attribute='session_time')|sum) / daily|length }} min</span>
+			<span class="stat-value">
+				{% if daily|length > 0 %}
+					{{ (daily|map(attribute='session_time')|sum) / daily|length }} min
+				{% else %}
+					No sessions today
+				{% endif %}
+			</span>
 		</div>
 		<div class="stat-item">
 			<span class="stat-title">Total Time:</span>

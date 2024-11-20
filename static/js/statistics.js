@@ -1,10 +1,10 @@
 monthSessions = monthData.map(session => session.session_time);
 yearSessions = yearData.map(session => session.session_time);
 
-console.log(dayData.map(session => session.session_time));
-console.log(weekData.map(session => session.session_time));
-console.log(monthData.map(session => session.session_time));
-console.log(yearData.map(session => session.session_time));
+// console.log(dayData.map(session => session.session_time));
+// console.log(weekData.map(session => session.session_time));
+// console.log(monthData.map(session => session.session_time));
+// console.log(yearData.map(session => session.session_time));
 
 // Array to store timeline data (working and non-working periods)
 const timelineSegments = [];
@@ -40,12 +40,12 @@ dayData.forEach((session) => {
 		{
 			// Add not-working segment
 			timelineSegments.push({
-				degrees: SLEEP_START * DEGREE_PER_SECOND,
-				color: 'rgba(200, 200, 200, 0.3)' // Sleep color
+				degrees: Math.round(SLEEP_START * DEGREE_PER_SECOND),
+				color: 'rgba(200, 200, 200, 0.3)' // Non-working color
 			});
 			// Add sleep segment
 			timelineSegments.push({
-				degrees: (SLEEP_END - SLEEP_START) * DEGREE_PER_SECOND,
+				degrees: Math.round((SLEEP_END - SLEEP_START) * DEGREE_PER_SECOND),
 				color: 'rgba(128, 0, 128, 0.5)' // Sleep color
 			});
 		}
@@ -53,26 +53,26 @@ dayData.forEach((session) => {
 		{
 			// Add sleep segment
 			timelineSegments.push({
-				degrees: SLEEP_END * DEGREE_PER_SECOND,
+				degrees: Math.round(SLEEP_END * DEGREE_PER_SECOND),
 				color: 'rgba(128, 0, 128, 0.5)' // Sleep color
 			});
 		}
 		// Add non-working segment after sleep
 		timelineSegments.push({
-			degrees: (startTime - SLEEP_END) * DEGREE_PER_SECOND,
+			degrees: Math.round((startTime - SLEEP_END) * DEGREE_PER_SECOND),
 			color: 'rgba(200, 200, 200, 0.3)' // Non-working color
 		});
 	}
 	else if (startTime > lastEnd) {
 		// Add non-working segment if there is a gap
 		timelineSegments.push({
-			degrees: (startTime - lastEnd) * DEGREE_PER_SECOND,
+			degrees: Math.round((startTime - lastEnd) * DEGREE_PER_SECOND),
 			color: 'rgba(200, 200, 200, 0.3)' // Non-working color
 		});
 	}
 	// Add the working segment
 	timelineSegments.push({
-		degrees: session.session_time * DEGREE_PER_SECOND,
+		degrees: Math.round(session.session_time * DEGREE_PER_SECOND),
 		color: 'rgba(75, 192, 192, 1)' // Working color
 	});
 
@@ -85,23 +85,24 @@ if (SLEEP_START > SLEEP_END)
 	// Add the final non-working segment if the last session doesn't end at midnight
 	if (lastEnd < SECONDS_IN_A_DAY) {
 		timelineSegments.push({
-			degrees: (SLEEP_START - lastEnd) * DEGREE_PER_SECOND,
+			degrees: Math.round((SLEEP_START - lastEnd) * DEGREE_PER_SECOND),
 			color: 'rgba(200, 200, 200, 0.3)' // Non-working color
 		});
 	}
 	if (lastEnd < SECONDS_IN_A_DAY) {
 		timelineSegments.push({
-			degrees: (SECONDS_IN_A_DAY - SLEEP_START) * DEGREE_PER_SECOND,
+			degrees: Math.round((SECONDS_IN_A_DAY - SLEEP_START) * DEGREE_PER_SECOND),
 			color: 'rgba(128, 0, 128, 0.5)' // Sleep color
 		});
 	}
 }
 else
 {
+	console.log(Math.round((SECONDS_IN_A_DAY - lastEnd) * DEGREE_PER_SECOND));
 	// Add the final non-working segment if the last session doesn't end at midnight
 	if (lastEnd < SECONDS_IN_A_DAY) {
 		timelineSegments.push({
-			degrees: (SECONDS_IN_A_DAY - lastEnd) * DEGREE_PER_SECOND,
+			degrees: Math.round((SECONDS_IN_A_DAY - lastEnd) * DEGREE_PER_SECOND),
 			color: 'rgba(200, 200, 200, 0.3)' // Non-working color
 		});
 	}
@@ -156,12 +157,9 @@ const afterDrawPlugin = {
 			// Draw the hour label at the calculated position
 			ctx.fillText(hour, x, y);
 
-			// Calculate the starting point of the line (3/4 of the way to the outer edge)
-			let		lineStartRadius = 0; // Start 3/4 of the way
-			const	lineEndRadius = radius - 21; // End at the outer edge
-
-			if (hour === '00:00' || hour === '12:00' || hour === '06:00' || hour === '18:00')
-				lineStartRadius = 0;  // Increase radius for these hours
+			// Calculate the starting point of the line
+			const lineStartRadius = radius * (47 / 100);
+			const	lineEndRadius = radius - 21; 
 
 			// Calculate the start and end coordinates for the line
 			const xStart = centerX + Math.cos(angle) * lineStartRadius;
@@ -172,10 +170,10 @@ const afterDrawPlugin = {
 
 			// Draw a line from the center to the edge (clock-like)
 			ctx.beginPath();
-			ctx.moveTo(xStart, yStart);  // Start at 3/4 of the way
+			ctx.moveTo(xStart, yStart);
 			ctx.lineTo(xEnd, yEnd);  // End at the edge (outer radius)
-			ctx.strokeStyle = 'black';  // Set the color of the line
-			ctx.lineWidth = 0.2;  // Set the width of the line
+			ctx.strokeStyle = 'rgba(200, 200, 200, 1)';  // Set the color of the line
+			ctx.lineWidth = 1;  // Set the width of the line
 			ctx.stroke();  // Draw the line
 		});
 	}
@@ -195,7 +193,7 @@ const colorToLabel = {
 const uniqueLabels = [...new Set(timelineSegments.map(segment => colorToLabel[segment.color] || 'Unknown'))];
 
 const dailyChart = new Chart(document.getElementById('dailyChart'), {
-	type: 'pie',
+	type: 'doughnut',
 	data: {
 		labels: uniqueLabels,
 		datasets: [{
@@ -278,28 +276,45 @@ const titleText = [
 	`( ${formatDate(startOfWeek)} - ${formatDate(endOfWeek)} )`
 ];
 
-// which sessions happened on the same day, and group them by days.
-// Then, once you have the groups, you check inside of them for the sessions,
-// and sum the session times. Giving you a total amount worked on that day.
+function groupSessionsByDay(weekData) {
+	// Create an object to store total time worked per day
+	const sessionsByDay = {};
 
-// // Function to group sessions by day and calculate total session time in hours
-// function groupSessionsByDay(weekData) {
-// 	// Group sessions by day (using the date part of the timestamp)
-// 	weekSessions.forEach(session) => {
-// 		const date = new Date(session.timestamp);
+	// Loop through each session in the weekData array
+	weekData.forEach(session => {
+		// Parse the timestamp into a Date object
+		const date = new Date(session.timestamp);
 
-// 		const day = date.getDate();
+		// Get the date (without the time part) to group by
+		const day = date.toISOString().split('T')[0];  // Get date in YYYY-MM-DD format
 
-// 	}
+		// If the day is not in the object, initialize it with 0
+		if (!sessionsByDay[day]) {
+			sessionsByDay[day] = 0;
+		}
 
-// 	return dailySessionsInHours;  // Return an array with the total hours per day
-// }
+		// Add the session time to the total time for this day
+		// Assuming the session contains a 'durationInSeconds' field for the session's time in seconds
+		sessionsByDay[day] += session.durationInSeconds; 
+	});
+
+	// Now, we can map the daily total time to an array (in hours) for the chart
+	const dailySessionsInHours = Object.keys(sessionsByDay).map(day => {
+		// Convert total seconds to hours (rounded to nearest whole hour)
+		const hours = Math.floor(sessionsByDay[day] / 3600);
+		return hours; 
+	});
+
+	// Return the array of total hours worked per day
+	return dailySessionsInHours;
+}
 
 // Call the function and store the result
 const dailySessionsInHours = groupSessionsByDay(weekData);
 
-// Log the result
+// Log the result (e.g., [3, 1.5, 1.25, ...])
 console.log(dailySessionsInHours);
+
 
 // Chart for weekly work
 const weeklyChart = new Chart(document.getElementById('weeklyChart'), {
@@ -308,7 +323,7 @@ const weeklyChart = new Chart(document.getElementById('weeklyChart'), {
 		labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
 		datasets: [{
 			label: 'Hours Worked (Daily)',
-			data: dailySessionsInHours,
+			data: dailySessionsInHours,  // Total hours worked per day
 			backgroundColor: 'rgba(153, 102, 255, 0.2)',
 			borderColor: 'rgba(153, 102, 255, 1)',
 			borderWidth: 1
@@ -320,7 +335,7 @@ const weeklyChart = new Chart(document.getElementById('weeklyChart'), {
 		plugins: {
 			title: {
 				display: true,
-				text: titleText,
+				text: 'Weekly Work Summary',
 				position: 'top',
 				padding: {
 					bottom: 30 // Adds a little padding at the bottom for spacing
@@ -330,18 +345,11 @@ const weeklyChart = new Chart(document.getElementById('weeklyChart'), {
 				callbacks: {
 					// Custom tooltip label function
 					label: function(tooltipItem) {
-						// Get the index of the item in the dataset
-						const index = tooltipItem.dataIndex;
+						// Get the total session time for the given day (in hours)
+						const totalHours = dailySessionsInHours[tooltipItem.dataIndex];
 
-						// Access the original time in seconds
-						const sessionTimeInSeconds = weekSessions[index];
-
-						// Convert the session time to hours and minutes
-						const hours = Math.floor(sessionTimeInSeconds / 3600);
-						const minutes = Math.floor((sessionTimeInSeconds % 3600) / 60);
-
-						// Format the time as "X hours Y minutes"
-						const formattedTime = `${hours}h ${minutes < 10 ? '0' : ''}${minutes}m`;
+						// Format the time as "X hours"
+						const formattedTime = `${totalHours}h`;
 
 						return formattedTime;
 					}
@@ -370,6 +378,7 @@ const weeklyChart = new Chart(document.getElementById('weeklyChart'), {
 		}
 	}
 });
+
 
 
 

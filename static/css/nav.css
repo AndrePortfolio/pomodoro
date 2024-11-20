@@ -11,10 +11,10 @@ nav .navbar-brand .green
 }
 
 nav {
-    background-color: rgba(30, 119, 201, 0.3); /* Low-intensity light red */
+    background-color: white;
     background-image: none;
-    position: relative; /* Ensure navbar is in its own context */
-    z-index: 10;
+    position: absolute; /* Ensure navbar is in its own context */
+    width: 100%;
 }
 
 .nav-img {
@@ -24,4 +24,11 @@ nav {
 
 .navbar-brand:hover {
     transform: scale(1.05);
+}
+
+.blue-band {
+    background-color: rgba(30, 119, 201, 0.3);
+    width: 100%; /* Makes it span the entire width of the navbar */
+    top: 0;
+    position: relative;
 }

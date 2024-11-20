@@ -1,7 +1,7 @@
 monthSessions = monthData.map(session => session.session_time);
 yearSessions = yearData.map(session => session.session_time);
 
-// console.log(dayData.map(session => session.session_time));
+console.log(dayData.map(session => session.session_time));
 // console.log(weekData.map(session => session.session_time));
 // console.log(monthData.map(session => session.session_time));
 // console.log(yearData.map(session => session.session_time));
@@ -107,6 +107,7 @@ else
 		});
 	}
 }
+
 
 const afterDrawPlugin = {
 	id: 'afterDrawPlugin', // Unique ID for the plugin
@@ -277,44 +278,31 @@ const titleText = [
 ];
 
 function groupSessionsByDay(weekData) {
-	// Create an object to store total time worked per day
 	const sessionsByDay = {};
 
-	// Loop through each session in the weekData array
 	weekData.forEach(session => {
-		// Parse the timestamp into a Date object
 		const date = new Date(session.timestamp);
+		const day = date.toISOString().split('T')[0];
 
-		// Get the date (without the time part) to group by
-		const day = date.toISOString().split('T')[0];  // Get date in YYYY-MM-DD format
-
-		// If the day is not in the object, initialize it with 0
 		if (!sessionsByDay[day]) {
 			sessionsByDay[day] = 0;
 		}
-
-		// Add the session time to the total time for this day
-		// Assuming the session contains a 'durationInSeconds' field for the session's time in seconds
-		sessionsByDay[day] += session.durationInSeconds; 
+		sessionsByDay[day] += session.session_time;
 	});
 
-	// Now, we can map the daily total time to an array (in hours) for the chart
+	// Convert the total seconds into hours with precision
 	const dailySessionsInHours = Object.keys(sessionsByDay).map(day => {
-		// Convert total seconds to hours (rounded to nearest whole hour)
-		const hours = Math.floor(sessionsByDay[day] / 3600);
-		return hours; 
+		return sessionsByDay[day] / 3600; // Convert seconds to fractional hours
 	});
 
-	// Return the array of total hours worked per day
 	return dailySessionsInHours;
 }
 
 // Call the function and store the result
 const dailySessionsInHours = groupSessionsByDay(weekData);
 
-// Log the result (e.g., [3, 1.5, 1.25, ...])
+// Log the result (e.g., [3.5, 1.25, ...])
 console.log(dailySessionsInHours);
-
 
 // Chart for weekly work
 const weeklyChart = new Chart(document.getElementById('weeklyChart'), {
@@ -323,7 +311,7 @@ const weeklyChart = new Chart(document.getElementById('weeklyChart'), {
 		labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
 		datasets: [{
 			label: 'Hours Worked (Daily)',
-			data: dailySessionsInHours,  // Total hours worked per day
+			data: dailySessionsInHours, // Fractional hours
 			backgroundColor: 'rgba(153, 102, 255, 0.2)',
 			borderColor: 'rgba(153, 102, 255, 1)',
 			borderWidth: 1
@@ -335,23 +323,23 @@ const weeklyChart = new Chart(document.getElementById('weeklyChart'), {
 		plugins: {
 			title: {
 				display: true,
-				text: 'Weekly Work Summary',
+				text: titleText,
 				position: 'top',
 				padding: {
-					bottom: 30 // Adds a little padding at the bottom for spacing
+					bottom: 30
 				}
 			},
 			tooltip: {
 				callbacks: {
-					// Custom tooltip label function
 					label: function(tooltipItem) {
-						// Get the total session time for the given day (in hours)
+						// Get the total session time for the given day (fractional hours)
 						const totalHours = dailySessionsInHours[tooltipItem.dataIndex];
 
-						// Format the time as "X hours"
-						const formattedTime = `${totalHours}h`;
+						// Format the time as "X hours Y minutes"
+						const hours = Math.floor(totalHours);
+						const minutes = Math.round((totalHours % 1) * 60);
 
-						return formattedTime;
+						return `${hours}h ${minutes}m`;
 					}
 				}
 			},
@@ -361,24 +349,19 @@ const weeklyChart = new Chart(document.getElementById('weeklyChart'), {
 				labels: {
 					usePointStyle: true
 				},
-				// Make sure the legend items are displayed in a row
-				align: 'center', // Centers the legends
-				fullWidth: true
+				align: 'center'
 			}
 		},
 		scales: {
 			y: {
-				min: 0,   // Ensure the y-axis starts from 0
-				max: 12,  // Set the maximum value to 16 hours
-				stepSize: 2,  // Control the step size (interval between ticks on the y-axis)
+				beginAtZero: true,
 				ticks: {
-					beginAtZero: true  // Ensures the y-axis always starts from 0
+					stepSize: 1 // Fractional steps will still display fine
 				}
 			}
 		}
 	}
 });
-
 
 
 

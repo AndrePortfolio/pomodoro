@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template
+from flask import Blueprint, render_template, session
 from datetime import datetime
 from cs50 import SQL
 from helpers import login_required
@@ -19,7 +19,7 @@ def statistics():
 
 	# Today's data (start of today to end of today)
 	today_start = now.replace(hour=0, minute=0, second=0, microsecond=0)
-	today_end = now.replace(hour=23, minute=59, second=59, microsecond=999999)
+	today_end = now.replace(hour=23, minute=59, second=59, microsecond=0)
 
 	# This week's data (start of this week to end of this week)
 	start_of_week = now - timedelta(days=now.weekday())  # Start of the week (Monday)
@@ -35,11 +35,26 @@ def statistics():
 	start_of_year = now.replace(month=1, day=1, hour=0, minute=0, second=0, microsecond=0)
 	end_of_year = now.replace(month=12, day=31, hour=23, minute=59, second=59, microsecond=0)
 
+	user_id = session["user_id"]
+	print(today_start)
+	print(today_end)
+	#FIX TABLE QUERY SELECT * FROM sessions WHERE timestamp >= '2024-11-20 00:00:00' AND timestamp <= '2024-11-20 23:59:59' AND user_id = 1;
+	#id   user_id  session_time  timestamp          
+	#---  -------  ------------  -------------------
+	#126  1        7000          2024-11-20 14:30:00
+	#127  1        10000         2024-11-20 18:30:00
+	#ON THIS TABLE:
+	#id   user_id  session_time  timestamp          
+	#---  -------  ------------  -------------------
+	#125  1        10000         2024-11-20 8:30:00 
+	#126  1        7000          2024-11-20 14:30:00
+	#127  1        10000         2024-11-20 18:30:00
+
 	# SQL queries to get data for each period
-	daily = db.execute("SELECT * FROM sessions WHERE timestamp >= ? AND timestamp <= ?", today_start, today_end)
-	weekly = db.execute("SELECT * FROM sessions WHERE timestamp >= ? AND timestamp <= ?", start_of_week, end_of_week)
-	monthly = db.execute("SELECT * FROM sessions WHERE timestamp >= ? AND timestamp <= ?", start_of_month, end_of_month)
-	yearly = db.execute("SELECT * FROM sessions WHERE timestamp >= ? AND timestamp <= ?", start_of_year, end_of_year)
+	daily = db.execute("SELECT * FROM sessions WHERE timestamp >= ? AND timestamp <= ? AND user_id = ?", today_start, today_end, user_id)
+	weekly = db.execute("SELECT * FROM sessions WHERE timestamp >= ? AND timestamp <= ? AND user_id = ?", start_of_week, end_of_week, user_id)
+	monthly = db.execute("SELECT * FROM sessions WHERE timestamp >= ? AND timestamp <= ? AND user_id = ?", start_of_month, end_of_month, user_id)
+	yearly = db.execute("SELECT * FROM sessions WHERE timestamp >= ? AND timestamp <= ? AND user_id = ?", start_of_year, end_of_year, user_id)
 
 	return render_template("statistics.html", daily=daily, weekly=weekly, monthly=monthly, yearly=yearly)
 

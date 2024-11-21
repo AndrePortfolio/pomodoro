@@ -1,11 +1,3 @@
-monthSessions = monthData.map(session => session.session_time);
-yearSessions = yearData.map(session => session.session_time);
-
-console.log(dayData.map(session => session.session_time));
-// console.log(weekData.map(session => session.session_time));
-// console.log(monthData.map(session => session.session_time));
-// console.log(yearData.map(session => session.session_time));
-
 // Array to store timeline data (working and non-working periods)
 const timelineSegments = [];
 
@@ -98,7 +90,6 @@ if (SLEEP_START > SLEEP_END)
 }
 else
 {
-	console.log(Math.round((SECONDS_IN_A_DAY - lastEnd) * DEGREE_PER_SECOND));
 	// Add the final non-working segment if the last session doesn't end at midnight
 	if (lastEnd < SECONDS_IN_A_DAY) {
 		timelineSegments.push({
@@ -107,7 +98,6 @@ else
 		});
 	}
 }
-
 
 const afterDrawPlugin = {
 	id: 'afterDrawPlugin', // Unique ID for the plugin
@@ -160,7 +150,7 @@ const afterDrawPlugin = {
 
 			// Calculate the starting point of the line
 			const lineStartRadius = radius * (47 / 100);
-			const	lineEndRadius = radius - 21; 
+			const	lineEndRadius = radius - 21;
 
 			// Calculate the start and end coordinates for the line
 			const xStart = centerX + Math.cos(angle) * lineStartRadius;
@@ -249,166 +239,5 @@ const dailyChart = new Chart(document.getElementById('dailyChart'), {
 				fullWidth: true
 			}
 		},
-	}
-});
-
-// Get the current date
-const currentDate = new Date();
-
-// Get the current day of the week (0 = Sunday, 1 = Monday, ..., 6 = Saturday)
-const currentDay = currentDate.getDay();
-
-// Calculate the start of the week (Monday)
-const startOfWeek = new Date(currentDate);
-startOfWeek.setDate(currentDate.getDate() - currentDay + 1); // Adjust for Monday (set to the previous Monday)
-startOfWeek.setHours(0, 0, 0, 0); // Set the time to midnight
-
-// Calculate the end of the week (Sunday)
-const endOfWeek = new Date(startOfWeek);
-endOfWeek.setDate(startOfWeek.getDate() + 6); // Sunday is 6 days after Monday
-endOfWeek.setHours(23, 59, 59, 999); // Set the time to 11:59:59 PM
-
-// Format the dates as 'Day X' (e.g., 'Day 18')
-const formatDate = (date) => `Day ${date.getDate()}`;
-
-// Set the dynamic title text
-const titleText = [
-	'This Week Focused time',
-	`( ${formatDate(startOfWeek)} - ${formatDate(endOfWeek)} )`
-];
-
-function groupSessionsByDay(weekData) {
-	const sessionsByDay = {};
-
-	weekData.forEach(session => {
-		const date = new Date(session.timestamp);
-		const day = date.toISOString().split('T')[0];
-
-		if (!sessionsByDay[day]) {
-			sessionsByDay[day] = 0;
-		}
-		sessionsByDay[day] += session.session_time;
-	});
-
-	// Convert the total seconds into hours with precision
-	const dailySessionsInHours = Object.keys(sessionsByDay).map(day => {
-		return sessionsByDay[day] / 3600; // Convert seconds to fractional hours
-	});
-
-	return dailySessionsInHours;
-}
-
-// Call the function and store the result
-const dailySessionsInHours = groupSessionsByDay(weekData);
-
-// Log the result (e.g., [3.5, 1.25, ...])
-console.log(dailySessionsInHours);
-
-// Chart for weekly work
-const weeklyChart = new Chart(document.getElementById('weeklyChart'), {
-	type: 'bar',
-	data: {
-		labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
-		datasets: [{
-			label: 'Hours Worked (Daily)',
-			data: dailySessionsInHours, // Fractional hours
-			backgroundColor: 'rgba(153, 102, 255, 0.2)',
-			borderColor: 'rgba(153, 102, 255, 1)',
-			borderWidth: 1
-		}]
-	},
-	options: {
-		responsive: true,
-		maintainAspectRatio: true,
-		plugins: {
-			title: {
-				display: true,
-				text: titleText,
-				position: 'top',
-				padding: {
-					bottom: 30
-				}
-			},
-			tooltip: {
-				callbacks: {
-					label: function(tooltipItem) {
-						// Get the total session time for the given day (fractional hours)
-						const totalHours = dailySessionsInHours[tooltipItem.dataIndex];
-
-						// Format the time as "X hours Y minutes"
-						const hours = Math.floor(totalHours);
-						const minutes = Math.round((totalHours % 1) * 60);
-
-						return `${hours}h ${minutes}m`;
-					}
-				}
-			},
-			legend: {
-				display: true,
-				position: 'bottom',
-				labels: {
-					usePointStyle: true
-				},
-				align: 'center'
-			}
-		},
-		scales: {
-			y: {
-				beginAtZero: true,
-				ticks: {
-					stepSize: 1 // Fractional steps will still display fine
-				}
-			}
-		}
-	}
-});
-
-
-
-// Chart for monthly work
-const monthlyChart = new Chart(document.getElementById('monthlyChart'), {
-	type: 'line',
-	data: {
-		labels: ['Week 1', 'Week 2', 'Week 3', 'Week 4', 'Week 5'],
-		datasets: [{
-			label: 'Hours Worked (Monthly)',
-			data: monthSessions,
-			fill: false,
-			borderColor: 'rgba(54, 162, 235, 1)',
-			tension: 0.1
-		}]
-	},
-	options: {
-		responsive: true,
-		plugins: {
-			title: {
-				display: true,
-				text: 'Monthly Work Statistics'
-			}
-		}
-	}
-});
-
-// Chart for yearly work
-const yearlyChart = new Chart(document.getElementById('yearlyChart'), {
-	type: 'bar',
-	data: {
-		labels: ['January', 'February', 'March'],
-		datasets: [{
-			label: 'Hours Worked (Yearly)',
-			data: yearSessions,
-			backgroundColor: 'rgba(255, 159, 64, 0.2)',
-			borderColor: 'rgba(255, 159, 64, 1)',
-			borderWidth: 1
-		}]
-	},
-	options: {
-		responsive: true,
-		plugins: {
-			title: {
-				display: true,
-				text: 'Yearly Work Statistics'
-			}
-		}
 	}
 });

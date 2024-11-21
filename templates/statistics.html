@@ -51,12 +51,16 @@
 		</div>
 	</div>
 	<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-annotation"></script>
 	<script>
 		const dayData = {{ daily | tojson }};
 		const weekData = {{ weekly | tojson }};
 		const monthData = {{ monthly | tojson }};
 		const yearData = {{ yearly | tojson }};
 	</script>
-	<script src="{{ url_for('static', filename='js/statistics.js') }}" defer></script>
+	<script src="{{ url_for('static', filename='js/dayStats.js') }}" defer></script>
+	<script src="{{ url_for('static', filename='js/weekStats.js') }}" defer></script>
+	<script type="module" src="{{ url_for('static', filename='js/monthStats.js') }}" defer></script>
+	<script src="{{ url_for('static', filename='js/yearStats.js') }}" defer></script>
 {% endblock %}
 

@@ -50,6 +50,8 @@ function pauseTime()
 // Stop the timer display
 function stopTime()
 {
+	tickTockSound.pause();
+	tickTockSound.currentTime = 0;
 	saveSessionTime();
 }
 

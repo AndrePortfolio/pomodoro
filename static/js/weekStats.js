@@ -56,11 +56,11 @@ const targetAverageHours = 6;
 const weeklyChart = new Chart(document.getElementById('weeklyChart'), {
 	type: 'bar',
 	data: {
-		labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+		labels: ['Monday', 'Tueday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'],
 		datasets: [{
 			data: dailySessionsInHours, // Fractional hours
-			backgroundColor: 'rgba(153, 102, 255, 0.2)',
-			borderColor: 'rgba(153, 102, 255, 1)',
+			backgroundColor: 'rgba(54, 162, 235, 0.5)',
+			borderColor: 'rgba(54, 162, 235, 1)',
 			borderWidth: 1
 		}]
 	},

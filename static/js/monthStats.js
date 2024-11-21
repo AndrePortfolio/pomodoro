@@ -43,7 +43,7 @@ const monthlyChart = new Chart(document.getElementById('monthlyChart'), {
 		plugins: {
 			title: {
 				display: true,
-				text: `${now.toLocaleString('default', { month: 'long' })} ${currentYear} Focused time`
+				text: `${now.toLocaleString('default', { month: 'long' })} Focused time`
 			},
 			tooltip: {
 				callbacks: {

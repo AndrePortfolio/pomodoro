@@ -5,33 +5,39 @@
 {% endblock %}
 
 {% block main %}
-	<div class="calendar-wrapper">
-		<h1>Calendar for {{ year }}</h1>
-		{% for month in months %}
-		<div class="calendar">
-			<div class="calendar-header">
-				<div class="month-year">{{ month.name }}</div>
-			</div>
-			<div class="calendar-days">
-				<div class="day">Sun</div>
-				<div class="day">Mon</div>
-				<div class="day">Tue</div>
-				<div class="day">Wed</div>
-				<div class="day">Thu</div>
-				<div class="day">Fri</div>
-				<div class="day">Sat</div>
-			</div>
-			<div class="calendar-grid">
-				<!-- Empty cells for days before the first of the month -->
-				{% for _ in range(month.first_weekday) %}
-				<div class="empty"></div>
-				{% endfor %}
-				<!-- Days of the month -->
-				{% for day in range(1, month.days + 1) %}
-				<div class="date">{{ day }}</div>
-				{% endfor %}
-			</div>
+	<div class="main-wrapper">
+		<div class="calendar-header-wrapper">
+			<h1>Calendar for {{ year }}</h1>
 		</div>
-		{% endfor %}
+		<div class="calendar-wrapper">
+			{% for month in months %}
+			<div class="calendar">
+				<div class="calendar-header">
+					<div class="month-year">{{ month.name }}</div>
+				</div>
+				<div class="calendar-days">
+					<div class="day">Sun</div>
+					<div class="day">Mon</div>
+					<div class="day">Tue</div>
+					<div class="day">Wed</div>
+					<div class="day">Thu</div>
+					<div class="day">Fri</div>
+					<div class="day">Sat</div>
+				</div>
+				<div class="calendar-grid">
+					<!-- Empty cells for days before the first of the month -->
+					{% for _ in range(month.first_weekday) %}
+					<div class="empty"></div>
+					{% endfor %}
+					<!-- Days of the month -->
+					{% for day in range(1, month.days + 1) %}
+					<div class="date">{{ day }}</div>
+					{% endfor %}
+				</div>
+			</div>
+			{% endfor %}
+		</div>
 	</div>
 {% endblock %}
+
+

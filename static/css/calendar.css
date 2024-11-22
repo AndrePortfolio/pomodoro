@@ -1,31 +1,55 @@
+/* Main wrapper for the entire calendar section */
+.main-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+}
+
+/* Header wrapper ensures header is treated as a separate block */
+.calendar-header-wrapper {
+    width: 100%;
+    text-align: center;
+}
+
+.calendar-header-wrapper h1 {
+    font-size: 24px;
+    font-weight: bold;
+    margin: 0;
+}
+
+/* Calendar grid styling */
 .calendar-wrapper {
     display: flex;
     flex-wrap: wrap;
-    gap: 20px;
     justify-content: center;
+    gap: 20px;
 }
 
 .calendar {
-    border: 1px solid #ccc;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border: 1px solid #ddd;
     padding: 10px;
-    width: 300px;
-    text-align: center;
+    border-radius: 5px;
     background-color: #f9f9f9;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
 .calendar-header {
-    font-size: 1.2em;
-    margin-bottom: 10px;
+    text-align: center;
+    font-size: 18px;
     font-weight: bold;
+    margin-bottom: 10px;
 }
 
 .calendar-days {
     display: grid;
     grid-template-columns: repeat(7, 1fr);
-    gap: 5px;
-    margin-bottom: 10px;
     font-weight: bold;
+    background-color: #e9e9e9;
+    padding: 5px;
+    text-align: center;
 }
 
 .calendar-grid {
@@ -35,17 +59,26 @@
 }
 
 .date, .empty {
-    padding: 10px;
-    border: 1px solid #ccc;
-    background-color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 30px;
+    width: 30px;
+    border-radius: 4px;
 }
 
-.date:hover {
-    background-color: #e0e0e0;
-    cursor: pointer;
+.date {
+    border: 1px solid #ddd;
 }
 
 .empty {
-    background-color: #f0f0f0;
+    background-color: transparent;
     pointer-events: none;
 }
+
+.date:hover {
+    background-color: rgba(255, 0, 0, 1); /* Fully opaque red on hover */
+    cursor: pointer;
+}
+
+

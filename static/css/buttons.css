@@ -1,62 +1,62 @@
 button {
-    padding: 10px 20px;
-    font-size: 1.2em;
-    cursor: pointer;
-    background-color: #28a745;
-    color: white;
-    border: none;
-    border-radius: 5px;
+	padding: 10px 20px;
+	font-size: 1.2em;
+	cursor: pointer;
+	background-color: #28a745;
+	color: white;
+	border: none;
+	border-radius: 5px;
 }
 
 button:hover {
-    background-color: #218838;
+	background-color: #218838;
 }
 
 .control-buttons {
-    display: flex;
-    justify-content: center;
-    gap: 10px;
+	display: flex;
+	justify-content: center;
+	gap: 10px;
 }
 
 .control-buttons img {
-    width: 60px;
-    cursor: pointer;
+	width: 60px;
+	cursor: pointer;
 }
 
 .adjustment-buttons {
-    position: absolute;
-    bottom: 60px; /* Adjust as needed to control the vertical position */
-    display: flex;
-    gap: 20px;
-    align-items: center;
-    justify-content: center;
+	position: absolute;
+	bottom: 60px; /* Adjust as needed to control the vertical position */
+	display: flex;
+	gap: 20px;
+	align-items: center;
+	justify-content: center;
 }
 
 .play-buttons:hover {
-    transform: scale(1.1);
+	transform: scale(1.1);
 }
 
 .btn {
-    border-radius: 50px; /* Rounded corners */
-    padding: 10px 20px; /* Internal padding for the buttons */
-    background-color: rgba(7, 36, 124, 0.6); /* Blue background color for visibility */
-    color: rgb(255, 255, 255); /* Text color */
-    border: none; /* Removes default border */
-    font-weight: bold; /* Makes text bold */
-    cursor: pointer; /* Changes cursor to pointer on hover */
-    transition: background-color 0.3s, transform 0.2s; /* Smooth transition on hover */
-    text-align: center;
-    text-decoration: none; /* Ensures no underline for links */
-    display: inline-block; /* Ensures the element behaves like a button */
-    text-transform: uppercase; /* Makes the text uppercase */
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+	border-radius: 50px; /* Rounded corners */
+	padding: 10px 20px; /* Internal padding for the buttons */
+	background-color: rgba(7, 36, 124, 0.6); /* Blue background color for visibility */
+	color: rgb(255, 255, 255); /* Text color */
+	border: none; /* Removes default border */
+	font-weight: bold; /* Makes text bold */
+	cursor: pointer; /* Changes cursor to pointer on hover */
+	transition: background-color 0.3s, transform 0.2s; /* Smooth transition on hover */
+	text-align: center;
+	text-decoration: none; /* Ensures no underline for links */
+	display: inline-block; /* Ensures the element behaves like a button */
+	text-transform: uppercase; /* Makes the text uppercase */
+	box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
 .btn:hover {
-    transform: scale(1.2); /* Slightly enlarge the button on hover */
+	transform: scale(1.2); /* Slightly enlarge the button on hover */
 }
 
 .btn:focus {
-    outline: none; /* Removes the focus outline */
+	outline: none; /* Removes the focus outline */
 }
 

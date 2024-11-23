@@ -1,21 +1,56 @@
-.charts-container {
-	display: flex;
-	flex-direction: column;
-	justify-content: center;
-	align-items: center;
+.stats-main-wrapper {
+	display: flex;               /* Side-by-side layout for big chart and all charts */
+    justify-content: center;     /* Center content horizontally */
+    align-items: center;         /* Center content vertically */
+    gap: 32px;                   /* Space between big chart and small charts */
+    width: 70%;               /* Full viewport height */
+    height: auto;               /* Full viewport height */
+    box-sizing: border-box;
+	position: absolute; /* Position relative to the page */
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%); /* Adjust to center itself */
+	flex-direction: row;
 }
 
-.chart-container {
-	width: 100%;
-	height: 100%;
-	margin: 20px auto; /* Adds spacing between the charts */
-	display: flex;
-	align-items: center; /* Centers content horizontally */
-	padding: 20px;
-	background-color: #f9f9f9;
-	border-radius: 10px;
-	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+.big-chart-container {
+    flex: 1;                     /* Occupies one part of the layout */
+    height: 80%;                 /* Adjust height as needed */
+    display: flex;               /* Center the big chart inside */
+    align-items: center;
+    justify-content: center;
 }
+
+.big-chart-container canvas {
+    width: 100%;                 /* Full width of the container */
+    height: 100%;                /* Full height of the container */
+    object-fit: contain;         /* Maintain aspect ratio */
+}
+
+/* All Charts Container (Right Side) */
+.all-charts-container {
+    display: grid;               /* Grid layout for small charts */
+    grid-template-columns: 1fr 1fr; /* Two columns for small charts */
+    grid-template-rows: 1fr 1fr; /* Two rows for small charts */
+    gap: 16px;                   /* Space between small charts */
+    flex: 1;                     /* Occupies one part of the layout */
+    height: 80%;                 /* Same height as big chart */
+    box-sizing: border-box;
+}
+
+/* Small Chart Containers */
+.small-chart-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.small-chart-container canvas {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
 
 .statistics {
 	display: flex; /* Arrange items horizontally */

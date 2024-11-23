@@ -36,7 +36,6 @@ def statistics():
 	end_of_year = now.replace(month=12, day=31, hour=23, minute=59, second=59, microsecond=0)
 
 	user_id = session["user_id"]
-
 	# SQL queries to get data for each period
 	daily = db.execute("SELECT * FROM sessions WHERE timestamp >= ? AND timestamp <= ? AND user_id = ?",
 					today_start, today_end, user_id)
@@ -46,6 +45,7 @@ def statistics():
 					start_of_month, end_of_month, user_id)
 	yearly = db.execute("SELECT * FROM sessions WHERE timestamp >= ? AND timestamp <= ? AND user_id = ?",
 					start_of_year, end_of_year, user_id)
+
 
 	return render_template("statistics.html", daily=daily, weekly=weekly, monthly=monthly, yearly=yearly)
 

@@ -5,51 +5,47 @@
 {% endblock %}
 
 {% block main %}
-	<div class="charts-container container">
-		<!-- Daily Work Chart -->
-		<div class="chart-container">
+	<div class="stats-main-wrapper">
+		<div class="big-chart-container">
 			<canvas id="dailyChart"></canvas>
 		</div>
-
-		<!-- Weekly Work Chart -->
-		<div class="chart-container">
-			<canvas id="weeklyChart"></canvas>
-		</div>
-
-		<!-- Monthly Work Chart -->
-		<div class="chart-container">
-			<canvas id="monthlyChart"></canvas>
-		</div>
-
-		<!-- Yearly Work Chart -->
-		<div class="chart-container">
-			<canvas id="yearlyChart"></canvas>
-		</div>
-	</div>
-	<div class="statistics">
-		<div class="stat-item">
-			<span class="stat-title">Sessions Completed:</span>
-			<span class="stat-value">{{ daily|length }}</span>
-		</div>
-		<div class="stat-item">
-			<span class="stat-title">Avg Time:</span>
-			<span class="stat-value">
-				{% if daily|length > 0 %}
-					{{ (daily|map(attribute='session_time')|sum) / daily|length }} min
-				{% else %}
-					No sessions today
-				{% endif %}
-			</span>
-		</div>
-		<div class="stat-item">
-			<span class="stat-title">Total Time:</span>
-			<span class="stat-value">{{ daily|map(attribute='session_time')|sum }} min</span>
-		</div>
-		<div class="stat-item">
-			<span class="stat-title">Longest Session:</span>
-			<span class="stat-value">{{ daily|map(attribute='session_time')|max }} min</span>
+		<div class="all-charts-container">
+			<div class="small-chart-container">
+				<canvas id="weeklyChart"></canvas>
+			</div>
+			<div class="small-chart-container">
+				<canvas id="monthlyChart"></canvas>
+			</div>
+			<div class="small-chart-container">
+				<canvas id="yearlyChart"></canvas>
+			</div>
+			<div class="statistics small-chart-container">
+				<div class="stat-item">
+					<span class="stat-title">Sessions Completed:</span>
+					<span class="stat-value">{{ daily|length }}</span>
+				</div>
+				<div class="stat-item">
+					<span class="stat-title">Avg Time:</span>
+					<span class="stat-value">
+						{% if daily|length > 0 %}
+							{{ (daily|map(attribute='session_time')|sum) / daily|length }} min
+						{% else %}
+							No sessions today
+						{% endif %}
+					</span>
+				</div>
+				<div class="stat-item">
+					<span class="stat-title">Total Time:</span>
+					<span class="stat-value">{{ daily|map(attribute='session_time')|sum }} min</span>
+				</div>
+				<div class="stat-item">
+					<span class="stat-title">Longest Session:</span>
+					<span class="stat-value">{{ daily|map(attribute='session_time')|max }} min</span>
+				</div>
+			</div>
 		</div>
 	</div>
+
 	<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 	<script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-annotation"></script>
 	<script>
@@ -62,5 +58,6 @@
 	<script src="{{ url_for('static', filename='js/weekStats.js') }}" defer></script>
 	<script type="module" src="{{ url_for('static', filename='js/monthStats.js') }}" defer></script>
 	<script type="module" src="{{ url_for('static', filename='js/yearStats.js') }}" defer></script>
+	<script type="module" src="{{ url_for('static', filename='js/yearsStats.js') }}" defer></script>
 {% endblock %}
 

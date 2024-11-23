@@ -1,5 +1,5 @@
 /* Main wrapper for the entire calendar section */
-.main-wrapper {
+.cal-main-wrapper {
     display: flex;
     flex-direction: column;
     align-items: center;

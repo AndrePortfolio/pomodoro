@@ -1,11 +1,11 @@
 .stats-main-wrapper {
 	display: flex;               /* Side-by-side layout for big chart and all charts */
-    justify-content: center;     /* Center content horizontally */
-    align-items: center;         /* Center content vertically */
-    gap: 32px;                   /* Space between big chart and small charts */
-    width: 70%;               /* Full viewport height */
-    height: auto;               /* Full viewport height */
-    box-sizing: border-box;
+	justify-content: center;     /* Center content horizontally */
+	align-items: stretch;         /* Center content vertically */
+	gap: 32px;                   /* Space between big chart and small charts */
+	width: 85%;                  /* Full viewport height */
+	height: auto;
+	box-sizing: border-box;
 	position: absolute; /* Position relative to the page */
 	top: 50%;
 	left: 50%;
@@ -14,43 +14,46 @@
 }
 
 .big-chart-container {
-    flex: 1;                     /* Occupies one part of the layout */
-    height: 80%;                 /* Adjust height as needed */
-    display: flex;               /* Center the big chart inside */
-    align-items: center;
-    justify-content: center;
+	flex: 1;                     /* Occupies one part of the layout */
+	height: 100%;                 /* Adjust height as needed */
+	display: flex;               /* Center the big chart inside */
+	align-items: center;
+	justify-content: space-between;
+	flex-direction: column;
 }
 
 .big-chart-container canvas {
-    width: 100%;                 /* Full width of the container */
-    height: 100%;                /* Full height of the container */
-    object-fit: contain;         /* Maintain aspect ratio */
+	width: 100%;                 /* Full width of the container */
+	height: 100%;                /* Full height of the container */
+	object-fit: contain;         /* Maintain aspect ratio */
 }
 
 /* All Charts Container (Right Side) */
 .all-charts-container {
-    display: grid;               /* Grid layout for small charts */
-    grid-template-columns: 1fr 1fr; /* Two columns for small charts */
-    grid-template-rows: 1fr 1fr; /* Two rows for small charts */
-    gap: 16px;                   /* Space between small charts */
-    flex: 1;                     /* Occupies one part of the layout */
-    height: 80%;                 /* Same height as big chart */
-    box-sizing: border-box;
+	display: grid;                  /* Grid layout for small charts */
+	grid-template-columns: 1fr 1fr; /* Two columns for small charts */
+	grid-template-rows: 1fr 1fr;    /* Two rows for small charts */
+	gap: 16px;                      /* Space between small charts */
+	flex: 2;
+	width: 100%;                    /* Full width of the container */
+	height: 100%;                   /* Same height as big chart */
+	box-sizing: border-box;
+	align-items: center;
+	align-self: center;
 }
 
 /* Small Chart Containers */
 .small-chart-container {
-    display: flex;
-    align-items: center;
-    justify-content: center;
+	display: flex;
+	align-items: center;
+	justify-content: center;
 }
 
 .small-chart-container canvas {
-    width: 100%;
-    height: 100%;
-    object-fit: contain;
+	width: 100%;
+	height: 100%;
+	object-fit: contain;
 }
-
 
 .statistics {
 	display: flex; /* Arrange items horizontally */
@@ -59,31 +62,32 @@
 	gap: 1rem; /* Add spacing between items */
 	margin: 2rem 0; /* Space around the statistics block */
 	padding: 1.5rem;
-	background-color: #f9f9f9; /* Light background for contrast */
 	border-radius: 10px; /* Rounded corners */
-	box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
-	width: 90%; /* Adjust size to fit page */
+	width: 100%; /* Adjust size to fit page */
 	max-width: 400px; /* Limit maximum width */
+	flex-grow: 1;
 }
 
 .stat-item {
-	display: flex; /* Align title and value side by side */
+	display: flex;               /* Align title and value side by side */
 	justify-content: space-between; /* Spread out title and value */
-	width: 100%; /* Take full width of the container */
+	width: 100%;                  /* Take full width of the container */
 	font-family: 'Arial', sans-serif; /* Modern font */
-	font-size: 1.2rem; /* Increase font size */
-	color: #333; /* Neutral text color */
+	font-size: 1.2rem;            /* Font size */
+	color: #333;                  /* Neutral text color */
+	line-height: 1;             /* Reduce line height to bring items closer */
 }
 
 .stat-title {
-	font-weight: bold; /* Highlight the title */
-	color: #555; /* Slightly lighter color for titles */
+	font-weight: bold;            /* Highlight the title */
+	color: #555;                  /* Slightly lighter color for titles */
 }
 
 .stat-value {
-	color: #ff6347; /* Tomato color for a thematic look */
+	color: #ff6347;               /* Tomato color for a thematic look */
 	font-weight: bold;
 }
+
 
 .charts-container {
 	display: flex;

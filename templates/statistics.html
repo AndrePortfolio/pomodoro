@@ -7,25 +7,16 @@
 {% block main %}
 	<div class="stats-main-wrapper">
 		<div class="big-chart-container">
-			<canvas id="dailyChart"></canvas>
-		</div>
-		<div class="all-charts-container">
-			<div class="small-chart-container">
-				<canvas id="weeklyChart"></canvas>
-			</div>
-			<div class="small-chart-container">
-				<canvas id="monthlyChart"></canvas>
-			</div>
-			<div class="small-chart-container">
-				<canvas id="yearlyChart"></canvas>
+			<div>
+				<canvas id="dailyChart"></canvas>
 			</div>
 			<div class="statistics small-chart-container">
 				<div class="stat-item">
-					<span class="stat-title">Sessions Completed:</span>
+					<span class="stat-title">Sessions Today:</span>
 					<span class="stat-value">{{ daily|length }}</span>
 				</div>
 				<div class="stat-item">
-					<span class="stat-title">Avg Time:</span>
+					<span class="stat-title">Average Time:</span>
 					<span class="stat-value">
 						{% if daily|length > 0 %}
 							{{ (daily|map(attribute='session_time')|sum) / daily|length }} min
@@ -42,6 +33,17 @@
 					<span class="stat-title">Longest Session:</span>
 					<span class="stat-value">{{ daily|map(attribute='session_time')|max }} min</span>
 				</div>
+			</div>
+		</div>
+		<div class="all-charts-container">
+			<div class="small-chart-container">
+				<canvas id="weeklyChart"></canvas>
+			</div>
+			<div class="small-chart-container">
+				<canvas id="monthlyChart"></canvas>
+			</div>
+			<div class="small-chart-container">
+				<canvas id="yearlyChart"></canvas>
 			</div>
 		</div>
 	</div>

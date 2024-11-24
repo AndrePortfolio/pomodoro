@@ -26,8 +26,6 @@ const totalHours = months.reduce((sum, value) => sum + value, 0); // Sum all ses
 const averageHours = totalHours / monthsInYear; // Calculate the average
 const targetAverageHours = 80; // Set target average hours per month
 
-console.log(months)
-
 const yearlyChart = new Chart(document.getElementById('yearlyChart'), {
 	type: 'bar',
 	data: {
@@ -146,7 +144,7 @@ const yearlyChart = new Chart(document.getElementById('yearlyChart'), {
 			y: {
 				beginAtZero: true,
 				ticks: {
-					stepSize: 1,
+					stepSize: 10,
 					callback: function(value) {
 						return `${value}h`;
 					}

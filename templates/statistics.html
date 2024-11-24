@@ -45,6 +45,9 @@
 			<div class="small-chart-container">
 				<canvas id="yearlyChart"></canvas>
 			</div>
+			<div class="small-chart-container">
+				<canvas id="yearsChart"></canvas>
+			</div>
 		</div>
 	</div>
 
@@ -55,6 +58,7 @@
 		const weekData = {{ weekly | tojson }};
 		const monthData = {{ monthly | tojson }};
 		const yearData = {{ yearly | tojson }};
+		const yearsData = {{ years | tojson }};
 	</script>
 	<script src="{{ url_for('static', filename='js/dayStats.js') }}" defer></script>
 	<script src="{{ url_for('static', filename='js/weekStats.js') }}" defer></script>

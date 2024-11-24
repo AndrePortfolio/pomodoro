@@ -70,10 +70,11 @@
 .stat-item {
 	display: flex;               /* Align title and value side by side */
 	justify-content: space-between; /* Spread out title and value */
+	align-items: center;
 	width: 100%;                  /* Take full width of the container */
 	font-family: 'Arial', sans-serif; /* Modern font */
 	font-size: 1.2rem;            /* Font size */
-	line-height: 1;             /* Reduce line height to bring items closer */
+	line-height: 0.6;             /* Reduce line height to bring items closer */
 }
 
 .stat-title {

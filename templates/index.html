@@ -29,6 +29,14 @@
 		</div>
 	</div>
 
+	<div id="confirmationModal" class="modal">
+		<div class="modal-content">
+			<p>Abandon Session?</p>
+			<button id="confirmButton" class="modal-button">Yes</button>
+			<button id="cancelButton" class="modal-button">Cancel</button>
+		</div>
+	</div>
+
 	<audio id="ticktac-sound" preload="auto" loop>
 		<source src="{{ url_for('static', filename='sounds/tictac.wav') }}" type="audio/wav">
 	</audio>

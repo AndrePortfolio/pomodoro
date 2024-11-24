@@ -63,8 +63,7 @@
 	margin: 2rem 0; /* Space around the statistics block */
 	padding: 1.5rem;
 	border-radius: 10px; /* Rounded corners */
-	width: 100%; /* Adjust size to fit page */
-	max-width: 400px; /* Limit maximum width */
+	width: 70%; /* Adjust size to fit page */
 	flex-grow: 1;
 }
 
@@ -74,7 +73,6 @@
 	width: 100%;                  /* Take full width of the container */
 	font-family: 'Arial', sans-serif; /* Modern font */
 	font-size: 1.2rem;            /* Font size */
-	color: #333;                  /* Neutral text color */
 	line-height: 1;             /* Reduce line height to bring items closer */
 }
 
@@ -84,7 +82,7 @@
 }
 
 .stat-value {
-	color: #ff6347;               /* Tomato color for a thematic look */
+	color: rgba(217, 57, 57, 1);               /* Tomato color for a thematic look */
 	font-weight: bold;
 }
 

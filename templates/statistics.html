@@ -10,16 +10,24 @@
 			<div>
 				<canvas id="dailyChart"></canvas>
 			</div>
+
 			<div class="statistics small-chart-container">
 				<div class="stat-item">
 					<span class="stat-title">Sessions Today:</span>
 					<span class="stat-value">{{ daily|length }}</span>
 				</div>
 				<div class="stat-item">
-					<span class="stat-title">Average Time:</span>
+					<span class="stat-title">Average Session:</span>
 					<span class="stat-value">
 						{% if daily|length > 0 %}
-							{{ (daily|map(attribute='session_time')|sum) / daily|length }} min
+							{% set avg_time = (daily|map(attribute='session_time')|sum) / daily|length %}
+							{% set hours = avg_time // 3600 %}
+							{% set minutes = (avg_time % 3600) // 60 %}
+							{% if hours > 0 %}
+								{{ "{} hours and {:02d} minutes".format(hours|int, minutes|int) }}
+							{% else %}
+								{{ "{} minutes".format(minutes|int) }}
+							{% endif %}
 						{% else %}
 							No sessions today
 						{% endif %}
@@ -27,13 +35,32 @@
 				</div>
 				<div class="stat-item">
 					<span class="stat-title">Total Time:</span>
-					<span class="stat-value">{{ daily|map(attribute='session_time')|sum }} min</span>
+					<span class="stat-value">
+						{% set total_time = daily|map(attribute='session_time')|sum %}
+						{% set hours = total_time // 3600 %}
+						{% set minutes = (total_time % 3600) // 60 %}
+						{% if hours > 0 %}
+							{{ "{} hours and {:02d} minutes".format(hours|int, minutes|int) }}
+						{% else %}
+							{{ "{} min".format(minutes|int) }}
+						{% endif %}
+					</span>
 				</div>
 				<div class="stat-item">
 					<span class="stat-title">Longest Session:</span>
-					<span class="stat-value">{{ daily|map(attribute='session_time')|max }} min</span>
+					<span class="stat-value">
+						{% set longest_session = daily|map(attribute='session_time')|max %}
+						{% set hours = longest_session // 3600 %}
+						{% set minutes = (longest_session % 3600) // 60 %}
+						{% if hours > 0 %}
+							{{ "{} hours and {:02d} minutes".format(hours|int, minutes|int) }}
+						{% else %}
+							{{ "{} min".format(minutes|int) }}
+						{% endif %}
+					</span>
 				</div>
 			</div>
+
 		</div>
 		<div class="all-charts-container">
 			<div class="small-chart-container">

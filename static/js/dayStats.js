@@ -20,6 +20,9 @@ dayData.sort((a, b) => new Date(a.timestamp) - new Date(b.timestamp));
 
 // Start tracking from midnight (0 seconds)
 let lastEnd = 0;
+const chillColor = 'rgba(200, 200, 200, 0.3)'
+const sleepColor = 'rgba(7, 36, 124, 0.6)'
+const workColor = 'rgba(217, 57, 57, 0.6)'
 
 // Loop through each session
 dayData.forEach((session) => {
@@ -33,12 +36,12 @@ dayData.forEach((session) => {
 			// Add not-working segment
 			timelineSegments.push({
 				degrees: Math.round(SLEEP_START * DEGREE_PER_SECOND),
-				color: 'rgba(200, 200, 200, 0.3)' // Non-working color
+				color: chillColor
 			});
 			// Add sleep segment
 			timelineSegments.push({
 				degrees: Math.round((SLEEP_END - SLEEP_START) * DEGREE_PER_SECOND),
-				color: 'rgba(128, 0, 128, 0.5)' // Sleep color
+				color: sleepColor
 			});
 		}
 		else
@@ -46,26 +49,26 @@ dayData.forEach((session) => {
 			// Add sleep segment
 			timelineSegments.push({
 				degrees: Math.round(SLEEP_END * DEGREE_PER_SECOND),
-				color: 'rgba(128, 0, 128, 0.5)' // Sleep color
+				color: sleepColor
 			});
 		}
 		// Add non-working segment after sleep
 		timelineSegments.push({
 			degrees: Math.round((startTime - SLEEP_END) * DEGREE_PER_SECOND),
-			color: 'rgba(200, 200, 200, 0.3)' // Non-working color
+			color: chillColor
 		});
 	}
 	else if (startTime > lastEnd) {
 		// Add non-working segment if there is a gap
 		timelineSegments.push({
 			degrees: Math.round((startTime - lastEnd) * DEGREE_PER_SECOND),
-			color: 'rgba(200, 200, 200, 0.3)' // Non-working color
+			color: chillColor
 		});
 	}
 	// Add the working segment
 	timelineSegments.push({
 		degrees: Math.round(session.session_time * DEGREE_PER_SECOND),
-		color: 'rgba(75, 192, 192, 1)' // Working color
+		color: workColor
 	});
 
 	// Update the last end time
@@ -78,13 +81,13 @@ if (SLEEP_START > SLEEP_END)
 	if (lastEnd < SECONDS_IN_A_DAY) {
 		timelineSegments.push({
 			degrees: Math.round((SLEEP_START - lastEnd) * DEGREE_PER_SECOND),
-			color: 'rgba(200, 200, 200, 0.3)' // Non-working color
+			color: chillColor
 		});
 	}
 	if (lastEnd < SECONDS_IN_A_DAY) {
 		timelineSegments.push({
 			degrees: Math.round((SECONDS_IN_A_DAY - SLEEP_START) * DEGREE_PER_SECOND),
-			color: 'rgba(128, 0, 128, 0.5)' // Sleep color
+			color: sleepColor
 		});
 	}
 }
@@ -94,7 +97,7 @@ else
 	if (lastEnd < SECONDS_IN_A_DAY) {
 		timelineSegments.push({
 			degrees: Math.round((SECONDS_IN_A_DAY - lastEnd) * DEGREE_PER_SECOND),
-			color: 'rgba(200, 200, 200, 0.3)' // Non-working color
+			color: chillColor
 		});
 	}
 }
@@ -175,9 +178,9 @@ Chart.register(afterDrawPlugin);
 
 // Define the colors to labels mapping
 const colorToLabel = {
-	'rgba(128, 0, 128, 0.5)': 'Sleep', // Sleep color
-	'rgba(200, 200, 200, 0.3)': 'Free Time', // Non-working color
-	'rgba(75, 192, 192, 1)': 'Working Sessions' // Working color
+	[sleepColor]: 'Sleep', // Sleep color
+	[chillColor]: 'Free Time', // Non-working color
+	[workColor]: 'Working Sessions' // Working color
 };
 
 // Map the timelineSegments colors to labels

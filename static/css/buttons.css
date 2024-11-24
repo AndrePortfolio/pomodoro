@@ -36,27 +36,54 @@ button:hover {
 	transform: scale(1.1);
 }
 
-.btn {
-	border-radius: 50px; /* Rounded corners */
-	padding: 10px 20px; /* Internal padding for the buttons */
-	background-color: rgba(7, 36, 124, 0.6); /* Blue background color for visibility */
-	color: rgb(255, 255, 255); /* Text color */
-	border: none; /* Removes default border */
-	font-weight: bold; /* Makes text bold */
-	cursor: pointer; /* Changes cursor to pointer on hover */
-	transition: background-color 0.3s, transform 0.2s; /* Smooth transition on hover */
-	text-align: center;
-	text-decoration: none; /* Ensures no underline for links */
-	display: inline-block; /* Ensures the element behaves like a button */
-	text-transform: uppercase; /* Makes the text uppercase */
-	box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+/* Modal styles */
+.modal {
+	display: none; /* Hidden by default */
+	position: fixed;
+	background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
+	z-index: 1000;
+	width: 100%; /* Full width */
+	padding: 10px 0; /* Some padding to prevent content from being too close to edges */
 }
 
-.btn:hover {
-	transform: scale(1.2); /* Slightly enlarge the button on hover */
+/* Modal content styles */
+.modal-content {
+	background-color: rgba(255, 255, 255, 0.9); /* Slightly opaque background for visibility */
+	padding: 20px;
+	border-radius: 20px; /* Rounded corners */
+	align-self: center;
+	max-width: 300px;
+	width: 25%;
+	max-height: 220px; /* Restrict max height */
+	height: auto;
+	margin: 0 auto; /* Centers the content horizontally */
+	position: fixed;
+	bottom: calc(15%);
+	left: 50%;
+	transform: translateX(-50%);
 }
 
-.btn:focus {
-	outline: none; /* Removes the focus outline */
+
+.modal-button {
+	padding: 10px 20px;
+	margin: 10px;
+	border: none;
+	background-color: #6ec971; /* Green background */
+	color: white;
+	font-size: 16px;
+	cursor: pointer;
+	border-radius: 5px;
+}
+
+.modal-button:hover {
+	background-color: #45a049; /* Darker green on hover */
+}
+
+#cancelButton {
+	background-color: #dc594f; /* Red background */
+}
+
+#cancelButton:hover {
+	background-color: #e53935; /* Darker red on hover */
 }
 

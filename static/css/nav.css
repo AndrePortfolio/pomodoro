@@ -5,11 +5,6 @@ nav .navbar-brand
 	font-size: xx-large;
 }
 
-nav .navbar-brand .green
-{
-	color: rgba(7, 36, 124, 0.6);
-}
-
 nav {
 	background-color: white;
 	background-image: none;
@@ -31,4 +26,28 @@ nav {
 	width: 100%; /* Makes it span the entire width of the navbar */
 	top: 0;
 	position: relative;
+}
+
+.btn {
+	border-radius: 50px; /* Rounded corners */
+	padding: 10px 20px; /* Internal padding for the buttons */
+	background-color: rgba(7, 36, 124, 0.6); /* Blue background color for visibility */
+	color: rgb(255, 255, 255); /* Text color */
+	border: none; /* Removes default border */
+	font-weight: bold; /* Makes text bold */
+	cursor: pointer; /* Changes cursor to pointer on hover */
+	transition: background-color 0.3s, transform 0.2s; /* Smooth transition on hover */
+	text-align: center;
+	text-decoration: none; /* Ensures no underline for links */
+	display: inline-block; /* Ensures the element behaves like a button */
+	text-transform: uppercase; /* Makes the text uppercase */
+	box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.btn:hover {
+	transform: scale(1.2); /* Slightly enlarge the button on hover */
+}
+
+.btn:focus {
+	outline: none; /* Removes the focus outline */
 }

@@ -50,10 +50,52 @@ function pauseTime()
 // Stop the timer display
 function stopTime()
 {
-	tickTockSound.pause();
-	tickTockSound.currentTime = 0;
-	saveSessionTime();
+	if (sessionRunning) {
+		// Show the confirmation modal
+		const confirmationModal = document.getElementById('confirmationModal');
+		confirmationModal.style.display = 'flex';
+
+		// Get the confirm and cancel buttons
+		const confirmButton = document.getElementById('confirmButton');
+		const cancelButton = document.getElementById('cancelButton');
+
+		// Store the target URL (link clicked) to navigate to after confirmation
+		const targetUrl = event.target.href;
+
+		// Confirm action
+		confirmButton.onclick = function() {
+			tickTockSound.pause();
+			tickTockSound.currentTime = 0;
+			saveSessionTime();
+			confirmationModal.style.display = 'none'; // Hide the modal after confirmation
+
+			// Now proceed with the navigation
+			if (targetUrl)
+				window.location.href = targetUrl;
+		};
+
+		// Cancel action
+		cancelButton.onclick = function() {
+			confirmationModal.style.display = 'none'; // Hide the modal if canceled
+		};
+
+		// Prevent the link's default action to allow showing the modal first
+		event.preventDefault();
+	}
 }
+
+// Add event listeners to the navbar links
+document.addEventListener('DOMContentLoaded', function() {
+	const navbarLinks = document.querySelectorAll('.navbar-nav a');
+
+	navbarLinks.forEach(link => {
+		link.addEventListener('click', function(event) {
+			if (sessionRunning) {
+				stopTime.call(link, event); // Call stopTime if a session is running
+			}
+		});
+	});
+});
 
 // Decrement the time by 1 second
 function decrementTime()
@@ -117,6 +159,7 @@ function saveSessionTime()
 		timerRunning = false;
 		sessionRunning = false;
 		timerSeconds = 1500;
+		updateTimerDisplay();
 	}
 }
 

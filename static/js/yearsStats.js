@@ -29,23 +29,18 @@ const yearsChart = new Chart(document.getElementById('yearsChart'), {
 		datasets: [{
 			label: 'Total Focused Time (Hours)',
 			data: filteredSessions, // Use the filtered session data
-			backgroundColor: [
-				'rgba(54, 162, 235, 0.5)',
-				'rgba(75, 192, 192, 0.5)',
-				'rgba(153, 102, 255, 0.5)',
-			].slice(0, filteredSessions.length), // Adjust background colors according to number of filtered years
-			borderColor: [
-				'rgba(54, 162, 235, 1)',
-				'rgba(75, 192, 192, 1)',
-				'rgba(153, 102, 255, 1)',
-			].slice(0, filteredSessions.length), // Adjust border colors according to number of filtered years
+			backgroundColor: 'rgba(7, 36, 124, 0.6)',
 			borderWidth: 1,
 		}],
 	},
 	options: {
 		responsive: true,
+		aspectRatio: 1.7,
 		plugins: {
 			title: {
+				font: {
+					size: 15,
+				},
 				display: true,
 				text: 'Total Focused Time per Year',
 			},
@@ -67,6 +62,7 @@ const yearsChart = new Chart(document.getElementById('yearsChart'), {
 			x: {
 				reverse: true, // This reverses the x-axis order
 				ticks: {
+					color: 'black',
 					font: {
 						size: 12,
 					},

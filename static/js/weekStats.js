@@ -59,22 +59,22 @@ const weeklyChart = new Chart(document.getElementById('weeklyChart'), {
 		labels: ['Monday', 'Tueday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'],
 		datasets: [{
 			data: dailySessionsInHours, // Fractional hours
-			backgroundColor: 'rgba(54, 162, 235, 0.5)',
-			borderColor: 'rgba(54, 162, 235, 1)',
+			backgroundColor: 'rgba(7, 36, 124, 0.6)',
 			borderWidth: 1
 		}]
 	},
 	options: {
 		responsive: true,
 		maintainAspectRatio: true,
+		aspectRatio: 1.7,
 		plugins: {
 			title: {
 				display: true,
 				text: titleText,
+				font: {
+					size: 15,
+				},
 				position: 'top',
-				padding: {
-					bottom: 30
-				}
 			},
 			tooltip: {
 				callbacks: {
@@ -105,24 +105,23 @@ const weeklyChart = new Chart(document.getElementById('weeklyChart'), {
 						// Add a custom label for the target average line
 						labels.push({
 							text: `Target Average Hours`,
-							fillStyle: 'green', // The color of the target average line
-							lineWidth: 2,
-							strokeStyle: 'green',
+							lineWidth: 5,
+							strokeStyle: workColor,
 							pointStyle: 'line',
 							hidden: false
 						});
 						// Add a custom label for the average line
 						labels.push({
 							text: 'Average Hours Worked',
-							fillStyle: 'red', // The color of the average line
-							lineWidth: 2,
-							strokeStyle: 'red',
+							lineWidth: 5,
+							strokeStyle: sleepColor,
 							pointStyle: 'line',
 							hidden: false
 						});
 						return labels;
 					},
 					usePointStyle: true,
+					paddingLeft: 50,
 				},
 				position: 'bottom',
 				align: 'center',
@@ -133,8 +132,8 @@ const weeklyChart = new Chart(document.getElementById('weeklyChart'), {
 						type: 'line',
 						yMin: averageHours,
 						yMax: averageHours,
-						borderColor: 'red',
-						borderWidth: 1,
+						borderColor: sleepColor,
+						borderWidth: 2,
 						label: {
 							content: `Average: ${averageHours.toFixed(2)}h`,
 							position: 'center',
@@ -148,7 +147,7 @@ const weeklyChart = new Chart(document.getElementById('weeklyChart'), {
 						type: 'line',
 						yMin: targetAverageHours,
 						yMax: targetAverageHours,
-						borderColor: 'green',
+						borderColor: workColor,
 						borderWidth: 2,
 						label: {
 							content: `Target Average: ${targetAverageHours.toFixed(2)}h`,
@@ -165,6 +164,7 @@ const weeklyChart = new Chart(document.getElementById('weeklyChart'), {
 		scales: {
 			x: {
 				ticks: {
+					color: 'black',
 					font: {
 						size: 12
 					}

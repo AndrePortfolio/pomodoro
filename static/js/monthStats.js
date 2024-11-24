@@ -33,15 +33,18 @@ const monthlyChart = new Chart(document.getElementById('monthlyChart'), {
 		labels: Array.from({ length: daysInMonth }, (_, i) => `${i + 1}`),
 		datasets: [{
 			data: days,
-			backgroundColor: 'rgba(54, 162, 235, 0.5)',
-			borderColor: 'rgba(54, 162, 235, 1)',
+			backgroundColor: 'rgba(7, 36, 124, 0.6)',
 			borderWidth: 1,
 		}],
 	},
 	options: {
 		responsive: true,
+		aspectRatio: 1.7,
 		plugins: {
 			title: {
+				font: {
+					size: 15,
+				},
 				display: true,
 				text: `${now.toLocaleString('default', { month: 'long' })} Focused time`
 			},
@@ -74,18 +77,16 @@ const monthlyChart = new Chart(document.getElementById('monthlyChart'), {
 						// Add a custom label for the target average line
 						labels.push({
 							text: `Target Average Hours`,
-							fillStyle: 'green', // The color of the target average line
-							lineWidth: 2,
-							strokeStyle: 'green',
+							lineWidth: 5,
+							strokeStyle: workColor,
 							pointStyle: 'line',
 							hidden: false
 						});
 						// Add a custom label for the average line
 						labels.push({
 							text: 'Average Hours Worked',
-							fillStyle: 'red', // The color of the average line
-							lineWidth: 2,
-							strokeStyle: 'red',
+							lineWidth: 5,
+							strokeStyle: sleepColor,
 							pointStyle: 'line',
 							hidden: false
 						});
@@ -102,10 +103,10 @@ const monthlyChart = new Chart(document.getElementById('monthlyChart'), {
 						type: 'line',
 						yMin: averageHours,
 						yMax: averageHours,
-						borderColor: 'red',
-						borderWidth: 1,
+						borderColor: sleepColor,
+						borderWidth: 2,
 						label: {
-							content: `Average: ${averageHours.toFixed(2)}h`, // Label for the line
+							content: `Average: ${averageHours.toFixed(2)}h`,
 							position: 'center',
 							backgroundColor: 'rgba(255, 255, 255, 0.7)',
 							font: {
@@ -117,7 +118,7 @@ const monthlyChart = new Chart(document.getElementById('monthlyChart'), {
 						type: 'line',
 						yMin: targetAverageHours,
 						yMax: targetAverageHours,
-						borderColor: 'green',
+						borderColor: workColor,
 						borderWidth: 2,
 						label: {
 							content: `Target Average: ${targetAverageHours.toFixed(2)}h`,
@@ -134,6 +135,7 @@ const monthlyChart = new Chart(document.getElementById('monthlyChart'), {
 		scales: {
 			x: {
 				ticks: {
+					color: 'black',
 					autoSkip: false,
 					maxRotation: 0,
 					minRotation: 0,

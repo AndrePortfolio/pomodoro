@@ -20,9 +20,6 @@ dayData.sort((a, b) => new Date(a.timestamp) - new Date(b.timestamp));
 
 // Start tracking from midnight (0 seconds)
 let lastEnd = 0;
-const chillColor = 'rgba(200, 200, 200, 0.3)'
-const sleepColor = 'rgba(7, 36, 124, 0.6)'
-const workColor = 'rgba(217, 57, 57, 0.6)'
 
 // Loop through each session
 dayData.forEach((session) => {
@@ -205,6 +202,9 @@ const dailyChart = new Chart(document.getElementById('dailyChart'), {
 				display: true,
 				text: 'Today\' Work Sessions',
 				position: 'top',
+				font: {
+					size: 15,
+				},
 				padding: {
 					bottom: 30 // Adds a little padding at the bottom for spacing
 				}

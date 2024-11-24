@@ -5,3 +5,6 @@
 	a session only really finished if the person closes it.
 4. Sound is weird, needs a fiz.
 5. with dev tools push the tab up and the entirety of the screen moves up.
+6. bug when time is running and change the session amount, database gets corrupted
+7. add a sound when the session finishes.
+8. change calendar month to the button collor with white letter

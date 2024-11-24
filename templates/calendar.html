@@ -29,15 +29,21 @@
 					{% for _ in range(month.first_weekday) %}
 					<div class="empty"></div>
 					{% endfor %}
-					<!-- Days of the month -->
-					{% for day in range(1, month.days + 1) %}
-					<div class="date">{{ day }}</div>
+					<!-- Days of the month with work hours data -->
+					{% for day_data in month.days_data %}
+					<div class="date" data-work-hours="{{day_data.sessions | sum}}">
+						{{ day_data.day }}
+					</div>
 					{% endfor %}
 				</div>
 			</div>
 			{% endfor %}
 		</div>
 	</div>
+	<script>
+		const calendarData = {{ months | tojson }};
+	</script>
+	<script src="{{ url_for('static', filename='js/calendar.js') }}"></script>
 {% endblock %}
 
 

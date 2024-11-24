@@ -1,3 +1,7 @@
+const allDaysData = calendarData.map(month => month.days_data);
+
+console.log(allDaysData);
+
 document.addEventListener('DOMContentLoaded', function() {
 	// Get all date elements
 	const dates = document.querySelectorAll('.date');
@@ -5,29 +9,27 @@ document.addEventListener('DOMContentLoaded', function() {
 	// Iterate over each date
 	dates.forEach(function(dateElement) {
 		// Get the work hours from the data attribute
-		const workHours = parseInt(dateElement.getAttribute('data-work-hours'), 10);
+		const workInSeconds = parseInt(dateElement.getAttribute('data-work-hours'), 10);
+		const workHours = workInSeconds / 3600;
 
-		// Calculate the opacity based on work hours
-		let opacity = 0.1; // Default opacity for no work
+		// console.log(workHours)
+		let		opacity = 0;
+		const	factor = 0.08;
 
-		if (workHours > 0 && workHours <= 1) {
-			opacity = 0.1;  // Light red for low work
-		} else if (workHours > 1 && workHours <= 3) {
-			opacity = 0.3;  // Moderate red for moderate work
-		} else if (workHours > 3 && workHours <= 5) {
-			opacity = 0.5;  // Stronger red for more work
-		} else if (workHours > 5 && workHours <= 8) {
-			opacity = 0.7;  // Deep red for high work
-		} else if (workHours > 8) {
-			opacity = 0.9;  // Very deep red for very high work
+		console.log(workHours)
+
+		if (workHours > 0) {
+			const multiplier = Math.min(Math.floor(workHours), 10);
+			opacity = factor * (multiplier + 1);
 		}
 
 		// Apply a red background with calculated opacity
-		dateElement.style.backgroundColor = `rgba(255, 0, 0, ${opacity})`;
+		dateElement.style.backgroundColor = `rgba(7, 36, 124, ${opacity})`;
 
 		// Optionally, change the text color based on the amount of work done
 		if (workHours > 5) {
 			dateElement.style.color = 'white';  // Make text white for highly worked days
 		}
+
 	});
 });

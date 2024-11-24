@@ -16,8 +16,6 @@ const distinctYears = totalSessionsPerYear
 // Filter out the session data corresponding to years with no data
 const filteredSessions = totalSessionsPerYear.filter(total => total > 0);
 
-console.log(totalSessionsPerYear)
-
 // Ensure we don't use years with no data in the chart labels or data
 const yearLabels = distinctYears.map(year => year.toString()); // Create year labels from the distinct years
 

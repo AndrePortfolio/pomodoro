@@ -1,8 +1,20 @@
 /* Size for brand */
-nav .navbar-brand
-{
-	padding: 10px;
-	font-size: xx-large;
+nav .navbar-brand {
+	padding: 20px;
+	font-size: 3em; /* Overall font scaling */
+	display: flex; /* Makes the container a flexbox */
+	align-items: center; /* Align letters and tomatoes vertically */
+}
+
+.letter {
+	font-size: 0.7em; /* Letters are slightly smaller */
+	line-height: 1; /* Avoid extra spacing */
+	margin: 0.2rem 0.2rem; /* Spacing between items */
+}
+
+.nav-img {
+	height: 1.2em; /* Make the tomato slightly larger than the text */
+	width: auto; /* Maintain the aspect ratio */
 }
 
 nav {
@@ -12,9 +24,9 @@ nav {
 	width: 100%;
 }
 
-.nav-img {
-	height: 1.5em;
-	vertical-align: middle;
+nav .navbar-nav {
+	display: flex; /* Make the navbar items align horizontally */
+	align-items: center; /* Vertically align items within the navbar */
 }
 
 .navbar-brand:hover {
@@ -30,7 +42,8 @@ nav {
 
 .btn {
 	border-radius: 50px; /* Rounded corners */
-	padding: 10px 20px; /* Internal padding for the buttons */
+	margin: 0 0.2rem;
+	padding: 15px 30px; /* Internal padding for the buttons */
 	background-color: rgba(7, 36, 124, 0.6); /* Blue background color for visibility */
 	color: rgb(255, 255, 255); /* Text color */
 	border: none; /* Removes default border */
@@ -42,6 +55,7 @@ nav {
 	display: inline-block; /* Ensures the element behaves like a button */
 	text-transform: uppercase; /* Makes the text uppercase */
 	box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+	vertical-align: middle; /* Aligns the buttons with surrounding elements */
 }
 
 .btn:hover {

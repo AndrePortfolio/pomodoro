@@ -72,6 +72,28 @@ dayData.forEach((session) => {
 	lastEnd = finishTime
 });
 
+// If dayData doesn't trigger, add sleep segment (default)
+if (timelineSegments.length === 0 || lastEnd === 0) {
+	if (SLEEP_START > 0 && (SLEEP_START < SLEEP_END)) {
+		// Add not-working segment
+		timelineSegments.push({
+			degrees: Math.round(SLEEP_START * DEGREE_PER_SECOND),
+			color: chillColor
+		});
+		// Add sleep segment
+		timelineSegments.push({
+			degrees: Math.round((SLEEP_END - SLEEP_START) * DEGREE_PER_SECOND),
+			color: sleepColor
+		});
+	} else {
+		// Add sleep segment
+		timelineSegments.push({
+			degrees: Math.round(SLEEP_END * DEGREE_PER_SECOND),
+			color: sleepColor
+		});
+	}
+}
+
 if (SLEEP_START > SLEEP_END)
 {
 	// Add the final non-working segment if the last session doesn't end at midnight
@@ -98,6 +120,7 @@ else
 		});
 	}
 }
+
 
 const afterDrawPlugin = {
 	id: 'afterDrawPlugin', // Unique ID for the plugin

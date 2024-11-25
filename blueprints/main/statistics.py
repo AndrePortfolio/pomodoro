@@ -52,6 +52,13 @@ def statistics():
 		years.append(year_data)
 		current_year -= 1
 
+	# Ensure that all variables are initialized to empty lists if there is no data
+	daily = daily or []  # Default to empty list if no data
+	weekly = weekly or []
+	monthly = monthly or []
+	yearly = yearly or []
+	years = years or []
+
 	return render_template("statistics.html", daily=daily, weekly=weekly, monthly=monthly, yearly=yearly, years=years)
 
 

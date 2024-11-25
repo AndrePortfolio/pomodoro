@@ -5,7 +5,7 @@ users.sort((a, b) => b.time - a.time);
 const leaderboardRows = document.querySelector(".leaderboard-rows");
 
 // Clear existing rows
-leaderboardRows.innerHTML = ""; // Clear all static rows
+leaderboardRows.innerHTML = "";
 
 // Add users dynamically
 users.forEach((user, index) => {

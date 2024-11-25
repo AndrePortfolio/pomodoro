@@ -14,12 +14,12 @@
 			<div class="statistics small-chart-container">
 				<div class="stat-item">
 					<span class="stat-title">Sessions Today:</span>
-					<span class="stat-value">{{ daily|length }}</span>
+					<span class="stat-value">{{ daily is not none and daily|length or 0 }}</span>
 				</div>
 				<div class="stat-item">
 					<span class="stat-title">Average Session:</span>
 					<span class="stat-value">
-						{% if daily|length > 0 %}
+						{% if daily is not none and daily|length > 0 %}
 							{% set avg_time = (daily|map(attribute='session_time')|sum) / daily|length %}
 							{% set hours = avg_time // 3600 %}
 							{% set minutes = (avg_time % 3600) // 60 %}
@@ -49,13 +49,17 @@
 				<div class="stat-item">
 					<span class="stat-title">Longest Session:</span>
 					<span class="stat-value">
-						{% set longest_session = daily|map(attribute='session_time')|max %}
-						{% set hours = longest_session // 3600 %}
-						{% set minutes = (longest_session % 3600) // 60 %}
-						{% if hours > 0 %}
-							{{ "{} hours and {:02d} minutes".format(hours|int, minutes|int) }}
+						{% if daily is not none and daily|length > 0 %}
+							{% set longest_session = daily|map(attribute='session_time')|max %}
+							{% set hours = longest_session // 3600 %}
+							{% set minutes = (longest_session % 3600) // 60 %}
+							{% if hours > 0 %}
+								{{ "{} hours and {:02d} minutes".format(hours|int, minutes|int) }}
+							{% else %}
+								{{ "{} min".format(minutes|int) }}
+							{% endif %}
 						{% else %}
-							{{ "{} min".format(minutes|int) }}
+							No sessions today
 						{% endif %}
 					</span>
 				</div>
@@ -81,11 +85,11 @@
 	<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 	<script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-annotation"></script>
 	<script>
-		const dayData = {{ daily | tojson }};
-		const weekData = {{ weekly | tojson }};
-		const monthData = {{ monthly | tojson }};
-		const yearData = {{ yearly | tojson }};
-		const yearsData = {{ years | tojson }};
+		const dayData = {{ daily | tojson | default([]) }};
+		const weekData = {{ weekly | tojson | default([]) }};
+		const monthData = {{ monthly | tojson | default([]) }};
+		const yearData = {{ yearly | tojson | default([]) }};
+		const yearsData = {{ years | tojson | default([]) }};
 	</script>
 	<script src="{{ url_for('static', filename='js/dayStats.js') }}" defer></script>
 	<script src="{{ url_for('static', filename='js/weekStats.js') }}" defer></script>
@@ -93,4 +97,5 @@
 	<script type="module" src="{{ url_for('static', filename='js/yearStats.js') }}" defer></script>
 	<script type="module" src="{{ url_for('static', filename='js/yearsStats.js') }}" defer></script>
 {% endblock %}
+
 

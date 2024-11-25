@@ -13,11 +13,24 @@ const distinctYears = totalSessionsPerYear
 	.map((total, index) => total > 0 ? new Date().getFullYear() - (index) : null)
 	.filter(year => year !== null); // Only keep years that have session data
 
-// Filter out the session data corresponding to years with no data
-const filteredSessions = totalSessionsPerYear.filter(total => total > 0);
+// Ensure the current year is included if there's any data from previous years
+const currentYear = new Date().getFullYear();
 
-// Ensure we don't use years with no data in the chart labels or data
-const yearLabels = distinctYears.map(year => year.toString()); // Create year labels from the distinct years
+// Check if current year already exists
+if (!distinctYears.includes(currentYear)) {
+	// Check if there's any data for other years (only add current year if there's data for other years)
+	if (totalSessionsPerYear.some(total => total > 0)) {
+		// If there's other session data, add current year with zero session time
+		distinctYears.push(currentYear);
+		totalSessionsPerYear.push(0);
+	}
+}
+
+// Filter out the session data corresponding to years with no data, but keep the current year if it has no data
+const filteredSessions = totalSessionsPerYear.filter(total => total > 0 || total === 0);
+
+// Create year labels from the distinct years
+const yearLabels = distinctYears.map(year => year.toString()); // Use distinct years, including the current year
 
 // Create the chart
 const yearsChart = new Chart(document.getElementById('yearsChart'), {
@@ -78,4 +91,3 @@ const yearsChart = new Chart(document.getElementById('yearsChart'), {
 		},
 	},
 });
-

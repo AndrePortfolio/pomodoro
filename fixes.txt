@@ -8,3 +8,4 @@
 6. bug when time is running and change the session amount, database gets corrupted
 7. add a sound when the session finishes.
 8. change calendar month to the button collor with white letter
+9. fix the sound and add a sound button

@@ -91,10 +91,10 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 30px; /* Smaller cells */
-    width: 30px; /* Smaller cells */
+    height: 35px; /* Smaller cells */
+    width: 35px; /* Smaller cells */
     border-radius: 5px;
-    font-size: 0.8em; /* Smaller font size */
+    font-size: 1em; /* Smaller font size */
 }
 
 /* Styling for active dates */
@@ -107,7 +107,7 @@
 /* Tooltip styling */
 .tooltip {
 	position: absolute; /* Position relative to the nearest positioned ancestor (.date) */
-	background-color: rgba(0, 0, 0, 0.8); /* Dark background */
+	background-color: rgba(0, 0, 0, 0.7); /* Dark background */
 	color: #fff; /* White text */
 	padding: 5px 10px; /* Padding for readability */
 	border-radius: 5px; /* Rounded corners */
@@ -123,4 +123,7 @@
 	background-color: rgba(0, 0, 0, 0.1);
 }
 
-
+.month-total-time {
+	font-size: 0.8em;  /* Adjust the value as necessary */
+	color: #666; /* Optional: Change the color if you want the total time to stand out more */
+}

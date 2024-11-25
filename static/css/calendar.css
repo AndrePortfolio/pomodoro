@@ -50,11 +50,20 @@
     font-weight: bold;
     margin-bottom: 10px;
 	box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-	background-color: rgba(30, 119, 201, 0.3);
+	/* background-color: rgba(252, 74, 52, 0.8);
+    color: white; */
+    background-color: rgba(30, 119, 201, 0.3);
+    color: black;
 	border-radius: 15px;
 	width: 100%;
 	text-align: center;
     padding: 8px;
+}
+
+.month-total-time {
+	font-size: 0.8em;  /* Adjust the value as necessary */
+	color: #666;
+	/* color: rgba(7, 36, 124, 0.6); */
 }
 
 /* Days of the week row */
@@ -121,9 +130,4 @@
 
 .date:hover {
 	background-color: rgba(0, 0, 0, 0.1);
-}
-
-.month-total-time {
-	font-size: 0.8em;  /* Adjust the value as necessary */
-	color: #666; /* Optional: Change the color if you want the total time to stand out more */
 }

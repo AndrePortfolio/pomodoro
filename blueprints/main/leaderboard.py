@@ -24,17 +24,24 @@ def leaderboard():
 		GROUP BY u.id
 		ORDER BY total_time DESC
 	"""
-	users_today = db.execute(query, today)
+	leaderboard_data = db.execute(query, today)
+	if not leaderboard_data:
+		return render_template("leaderboard.html", message="No sessions recorded today.")
 
-	# Prepare data for rendering
-	leaderboard_data = [
-		{
-			"username": user["username"],
-			"total_time": user["total_time"]
-		}
-		for user in users_today
-	]
-	print(users_today)
+	index = 1
+	# Convert session time to hours and minutes
+	for entry in leaderboard_data:
+		total_seconds = entry['total_time']
+		hours = total_seconds // 3600
+		minutes = (total_seconds % 3600) // 60
+		entry['total_time'] = f"{hours}h {minutes}m"
+		entry['rank'] = index
+		index += 1
+
+	# Limit the leaderboard data to a maximum of 10 users
+	leaderboard_data = leaderboard_data[:10]
+
+	print(leaderboard_data)
 
 	# Render the leaderboard with the leaderboard data
 	return render_template("leaderboard.html", leaderboard_data=leaderboard_data)

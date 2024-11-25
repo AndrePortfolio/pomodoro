@@ -1,9 +1,9 @@
-from flask import Flask
+from flask import Flask, abort
 from cs50 import SQL
 from flask_session import Session
 from blueprints.auth import auth_bp
 from blueprints.main import main_bp
-
+from helpers import apology
 
 # Initialize Flask app
 app = Flask(__name__)
@@ -26,6 +26,12 @@ def after_request(response):
 	response.headers["Expires"] = 0
 	response.headers["Pragma"] = "no-cache"
 	return response
+
+@app.route('/<path:random_value>')
+def handle_random(random_value):
+	if not random_value.isalnum():  # Reject non-alphanumeric random values
+		abort(404)  # Or you could redirect or handle it differently
+	return apology("Invalid URL.", 404)
 
 
 if __name__ == '__main__':

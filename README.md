@@ -9,14 +9,14 @@ You can view the demonstration of the finance app by clicking the link below: ht
 
 ### Key Features:
 - **User Authentication**: Users can register and log in to create personalized accounts. Multiple users can sign up and track their individual progress.
-![Description of the photo](https://github.com/AndrePortfolio/pomodoro/blob/main/images/homepage.png)
 - **Pomodoro Timer**: The main feature is the Pomodoro timer, which allows users to work in focused intervals and take short breaks in between.
-![Description of the photo](https://github.com/AndrePortfolio/pomodoro/blob/main/images/statistics.png)
+![Description of the photo](https://github.com/AndrePortfolio/pomodoro/blob/main/images/homepage.png)
 - **Statistics**: The app tracks the total number of Pomodoros completed, total work time, and provides other key statistics for each user. This data can be viewed on the dashboard.
-![Description of the photo](https://github.com/AndrePortfolio/pomodoro/blob/main/images/leaderboard.png)
+![Description of the photo](https://github.com/AndrePortfolio/pomodoro/blob/main/images/statistics.png)
 - **Leaderboard**: A dynamic leaderboard displays the most productive users based on the number of Pomodoros completed, motivating users to improve their productivity.
-![Description of the photo](https://github.com/AndrePortfolio/pomodoro/blob/main/images/calendar.png)
+![Description of the photo](https://github.com/AndrePortfolio/pomodoro/blob/main/images/leaderboard.png)
 - **Calendar**: A built-in calendar feature allows users to see their progress over time, marking the days they worked and providing a historical overview of their performance.
+![Description of the photo](https://github.com/AndrePortfolio/pomodoro/blob/main/images/calendar.png)
 
 ### File Breakdown:
 - **app.py**: The main Flask application file. It handles routing, user authentication, Pomodoro timer logic, and serves the application’s HTML templates.

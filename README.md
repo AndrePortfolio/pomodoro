@@ -23,7 +23,7 @@ You can view the demonstration of the finance app by clicking the link below:
   - `stats.html`: Shows detailed statistics for the logged-in user, such as the total Pomodoros completed and work time.
   - `calendar.html`: Displays a calendar with the user’s progress for the month.
 - **static/**: This folder contains static assets such as CSS and JavaScript files used to style the app and add interactivity.
-- **models.py**: Defines the database models used to store user information, Pomodoro session data, and leaderboard data.
+- **pomodoro.db**: Defines the database models used to store user information, Pomodoro session data, and leaderboard data.
 - **requirements.txt**: Contains the list of dependencies required to run the application, including Flask and other packages for handling database interactions, authentication, and more.
 
 ### Key Design Decisions:

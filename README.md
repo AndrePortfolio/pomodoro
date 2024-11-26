@@ -48,7 +48,13 @@ You can view the demonstration of the finance app by clicking the link below: ht
 - **Bootstrap**: Used for responsive and aesthetically pleasing UI design.
 
 ### Running the App:
-1. git clone git@github.com:AndrePortfolio/pomodoro.git
-2. cd pomodoro
-3. pip install -r requirements.txt
-4. flask run
+1. Clone the repository:
+   ```bash
+   git clone git@github.com:AndrePortfolio/pomodoro.git
+   cd pomodoro
+   /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+   brew install python@3.10
+   python3 -m venv venv
+   source venv/bin/activate
+   pip install -r requirements.txt
+   flask run

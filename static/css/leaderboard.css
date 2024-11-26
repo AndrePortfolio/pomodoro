@@ -8,11 +8,6 @@
 	box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 	font-family: 'Futura', sans-serif;
 	overflow: hidden;
-	position: absolute; /* Position relative to the page */
-	top: 50%;
-	left: 50%;
-	transform: translate(-50%, -60%); /* Adjust to center itself */
-	align-items: center;
 }
 
 /* Leaderboard title */
@@ -77,5 +72,83 @@
 	grid-template-columns: 1fr 1fr 1fr; /* Three equal columns */
 	text-align: center; /* Center text within each cell */
 	gap: 1rem; /* Space between columns */
+}
+
+.leaderboard-container {
+	width: 100%;
+	max-width: 650px;
+	position: absolute; /* Position relative to the page */
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -40%); /* Adjust to center itself */
+	align-items: center;
+	flex-direction: column;
+	align-items: center;
+}
+
+.blurred-leaderboards-left {
+	display: flex;
+	flex-direction: row;
+	gap: 1rem;
+	left: -200px; /* Shift the blurred images to the left */
+	z-index: -1; /* Send the blurred images behind the main leaderboard */
+
+	width: 100%;
+	max-width: 600px;
+	position: absolute; /* Position relative to the page */
+	top: 50%;
+	left: 50%;
+	transform: translate(-110%, -65%);
+}
+
+.blurred-leaderboard-left {
+	width: 100%;
+	height: auto;
+	filter: blur(10px);
+}
+
+.blurred-leaderboards-right {
+	display: flex;
+	flex-direction: row;
+	gap: 1rem;
+	left: +200px; /* Shift the blurred images to the right */
+	z-index: -1; /* Send the blurred images behind the main leaderboard */
+
+	width: 100%;
+	max-width: 600px;
+	position: absolute; /* Position relative to the page */
+	top: 50%;
+	left: 50%;
+	transform: translate(10%, -65%);
+}
+
+.blurred-leaderboard-right {
+	width: 100%;
+	height: auto;
+	filter: blur(10px);
+}
+
+.leaderboard-navigation {
+	display: flex;
+	flex-direction: row;
+	gap: 1rem;
+	margin-top: 20px;
+	justify-content: center;
+}
+
+.leaderboard-navigation button {
+	flex: none;
+	width: 120px;
+	background-color: rgba(252, 74, 52, 0.8);
+	color: white;
+	border: none;
+	cursor: pointer;
+	margin-right: 30px;
+	margin-left: 30px;
+	border-radius: 10px;
+}
+
+.leaderboard-navigation button:hover {
+	background-color: rgba(252, 74, 52, 0.5);
 }
 

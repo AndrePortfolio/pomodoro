@@ -5,28 +5,41 @@
 {% endblock %}
 
 {% block main %}
-	<div class="leaderboard">
-		<h2>Leaderboard</h2>
-		<div class="leaderboard-header leader-container">
-			<div class="rank">Rank</div>
-			<div class="user">User</div>
-			<div class="time">Time Worked</div>
+	<div class="leaderboard-container">
+		<div class="leaderboard">
+			<h2>Leaderboard</h2>
+			<div class="leaderboard-header leader-container">
+				<div class="rank">Rank</div>
+				<div class="user">User</div>
+				<div class="time">Time Worked</div>
+			</div>
+			<div class="leaderboard-rows ">
+				{% for entry in leaderboard_data %}
+					<div class="leaderboard-row leader-container">
+						<div class="rank">{{ entry.rank }}</div>
+						<div class="user">{{ entry.username }}</div>
+						<div class="time">{{ entry.total_time }}</div>
+					</div>
+				{% endfor %}
+				{% if leaderboard_data|length == 10 %}
+					<div class="leaderboard-row more-users leader-container">
+						<div class="rank">...</div>
+						<div class="user">...</div>
+						<div class="time">...</div>
+					</div>
+				{% endif %}
+			</div>
 		</div>
-		<div class="leaderboard-rows ">
-			{% for entry in leaderboard_data %}
-				<div class="leaderboard-row leader-container">
-					<div class="rank">{{ entry.rank }}</div>
-					<div class="user">{{ entry.username }}</div>
-					<div class="time">{{ entry.total_time }}</div>
-				</div>
-			{% endfor %}
-			{% if leaderboard_data|length == 10 %}
-				<div class="leaderboard-row more-users leader-container">
-					<div class="rank">...</div>
-					<div class="user">...</div>
-					<div class="time">...</div>
-				</div>
-			{% endif %}
+		<div class="leaderboard-navigation">
+			<button class="prev-leaderboard">Previous</button>
+			<button class="next-leaderboard">Next</button>
 		</div>
 	</div>
+	<div class="blurred-leaderboards-left">
+		<img src="{{ url_for('static', filename='images/day-leaderboard.png') }}" alt="Day Leaderboard" class="blurred-leaderboard-left">
+	</div>
+	<div class="blurred-leaderboards-right">
+		<img src="{{ url_for('static', filename='images/day-leaderboard.png') }}" alt="Day Leaderboard" class="blurred-leaderboard-right">
+	</div>
+	<script src="{{ url_for('static', filename='js/leaderboard.js') }}"></script>
 {% endblock %}

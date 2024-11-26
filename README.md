@@ -48,5 +48,7 @@ You can view the demonstration of the finance app by clicking the link below: ht
 - **Bootstrap**: Used for responsive and aesthetically pleasing UI design.
 
 ### Running the App:
-1. **Clone this repository** to your local machine.
-2. Navigate to the project folder and install dependencies:
+1. git clone git@github.com:AndrePortfolio/pomodoro.git
+2. cd pomodoro
+3. pip install -r requirements.txt
+4. flask run

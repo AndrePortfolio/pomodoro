@@ -16,18 +16,20 @@ TIMEFRAMES = ['today', 'this_week', 'this_month', 'this_year', 'all_time']
 def show_leaderboard():
 	# Get the current timeframe from the query parameters (or default to 'today')
 	timeframe = request.args.get('timeframe', 'today')
-	action = request.args.get('action')  # Check if action (prev/next) is specified
+	action = request.args.get('action', None)  # Check if action (prev/next) is specified
+
+	print(action)
 
 	# Initialize current_index from the session, defaulting to 0 if not present
 	current_index = session.get('current_index', 0)
 
-	# Handle actions to move the current index (prev/next)
+	# If action is specified (prev or next), update the current index
 	if action == 'prev':
 		current_index = (current_index - 1) % len(TIMEFRAMES)  # Wrap around with modulo
 	elif action == 'next':
 		current_index = (current_index + 1) % len(TIMEFRAMES)  # Wrap around with modulo
 
-	# Save the updated index back to the session
+	# Save the updated index back to the session only if it has changed
 	session['current_index'] = current_index
 
 	# Get the updated timeframe based on current_index

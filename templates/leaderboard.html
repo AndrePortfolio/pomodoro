@@ -21,12 +21,14 @@
 						<div class="time">{{ entry.total_time }}</div>
 					</div>
 				{% endfor %}
-				{% if leaderboard_data|length == 10 %}
-					<div class="leaderboard-row more-users leader-container">
-						<div class="rank">...</div>
-						<div class="user">...</div>
-						<div class="time">...</div>
-					</div>
+				{% if leaderboard_data|length < 11 %}
+					{% for i in range(leaderboard_data|length, 11) %}
+						<div class="leaderboard-row more-users leader-container">
+							<div class="rank">...</div>
+							<div class="user">...</div>
+							<div class="time">...</div>
+						</div>
+					{% endfor %}
 				{% endif %}
 			</div>
 		</div>

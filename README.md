@@ -6,7 +6,7 @@ This application allows users to **register** and **log in** to manage their per
 
 ## Pomodoro App Demonstration
 ![Description of the photo](https://github.com/AndrePortfolio/finance_app/blob/main/pomodoro_app.png)
-You can view the demonstration of the finance app by clicking the link below:
+You can view the demonstration of the finance app by clicking the link below: https://youtu.be/FS-YmiKhZa4
 
 ### Key Features:
 - **User Authentication**: Users can register and log in to create personalized accounts. Multiple users can sign up and track their individual progress.

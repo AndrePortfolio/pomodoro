@@ -12,6 +12,10 @@ body {
 	background-position: center;
 }
 
+.futura {
+	font-family: 'Futura';
+}
+
 /* Center wrapper in viewport */
 .container {
 	display: flex;
@@ -26,8 +30,8 @@ body {
 	left: 50%;
 	transform: translate(-50%, -60%); /* Adjust to center itself */
 	display: flex;
-	flex-direction: column;
 	align-items: center;
+	flex-direction: column;
 }
 
 .tomato-container {

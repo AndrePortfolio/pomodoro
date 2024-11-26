@@ -46,24 +46,22 @@
 /* Calendar month header */
 .calendar-header {
     text-align: center;
-    font-size: 16px; /* Smaller header text */
-    font-weight: bold;
-    margin-bottom: 10px;
+    font-size: 20px; /* Smaller header text */
+    margin-bottom: 5px;
 	box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-	/* background-color: rgba(252, 74, 52, 0.8);
-    color: white; */
-    background-color: rgba(30, 119, 201, 0.3);
-    color: black;
+	background-color: rgba(252, 74, 52, 0.8);
+    color: white;
+    /* background-color: rgba(30, 119, 201, 0.3);
+    color: black; */
 	border-radius: 15px;
 	width: 100%;
 	text-align: center;
-    padding: 8px;
+    padding: 5px;
 }
 
 .month-total-time {
 	font-size: 0.8em;  /* Adjust the value as necessary */
-	color: #666;
-	/* color: rgba(7, 36, 124, 0.6); */
+	color: rgba(7, 36, 124, 0.6);
 }
 
 /* Days of the week row */

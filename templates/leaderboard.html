@@ -7,21 +7,21 @@
 {% block main %}
 	<div class="leaderboard">
 		<h2>Leaderboard</h2>
-		<div class="leaderboard-header">
+		<div class="leaderboard-header leader-container">
 			<div class="rank">Rank</div>
 			<div class="user">User</div>
 			<div class="time">Time Worked</div>
 		</div>
-		<div class="leaderboard-rows">
+		<div class="leaderboard-rows ">
 			{% for entry in leaderboard_data %}
-				<div class="leaderboard-row">
+				<div class="leaderboard-row leader-container">
 					<div class="rank">{{ entry.rank }}</div>
 					<div class="user">{{ entry.username }}</div>
 					<div class="time">{{ entry.total_time }}</div>
 				</div>
 			{% endfor %}
 			{% if leaderboard_data|length == 10 %}
-				<div class="leaderboard-row more-users">
+				<div class="leaderboard-row more-users leader-container">
 					<div class="rank">...</div>
 					<div class="user">...</div>
 					<div class="time">...</div>

@@ -7,6 +7,8 @@ nav .navbar-brand {
 }
 
 .letter {
+	font-family: 'Futura';
+	color: rgba(7, 36, 124, 0.6);
 	font-size: 0.7em; /* Letters are slightly smaller */
 	line-height: 1; /* Avoid extra spacing */
 	margin: 0.2rem 0.2rem; /* Spacing between items */
@@ -41,13 +43,13 @@ nav .navbar-nav {
 }
 
 .btn {
+	font-family: 'Futura';
 	border-radius: 50px; /* Rounded corners */
 	margin: 0 0.2rem;
 	padding: 15px 30px; /* Internal padding for the buttons */
 	background-color: rgba(7, 36, 124, 0.6); /* Blue background color for visibility */
 	color: rgb(255, 255, 255); /* Text color */
 	border: none; /* Removes default border */
-	font-weight: bold; /* Makes text bold */
 	cursor: pointer; /* Changes cursor to pointer on hover */
 	transition: background-color 0.3s, transform 0.2s; /* Smooth transition on hover */
 	text-align: center;

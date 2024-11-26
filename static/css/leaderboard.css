@@ -1,19 +1,24 @@
 /* Leaderboard container */
 .leaderboard {
 	width: 100%;
-	max-width: 600px;
-	margin: 2rem auto;
+	max-width: 650px;
+	margin: 0; /* Remove margin to avoid interference */
 	background-color: #ffffff;
 	border-radius: 10px;
 	box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-	font-family: 'Arial', sans-serif;
+	font-family: 'Futura', sans-serif;
 	overflow: hidden;
+	position: absolute; /* Position relative to the page */
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -60%); /* Adjust to center itself */
+	align-items: center;
 }
 
 /* Leaderboard title */
 .leaderboard h2 {
 	text-align: center;
-	background-color: #ff6347; /* Tomato theme */
+	background-color: rgba(252, 74, 52, 0.8);
 	color: white;
 	padding: 1rem;
 	margin: 0;
@@ -23,7 +28,7 @@
 .leaderboard-header {
 	display: grid;
 	grid-template-columns: 1fr 2fr 2fr;
-	background-color: #ffeadb;
+	background-color: rgba(200, 200, 200, 0.3);
 	font-weight: bold;
 	padding: 0.5rem;
 	text-align: left;
@@ -48,22 +53,29 @@
 	background-color: #f9f9f9;
 }
 
+/* --darkblue-color: rgba(7, 36, 124, 0.6);
+--red-color: rgba(252, 74, 52, 0.9); */
+
 /* Highlight top rank */
 .leaderboard-row:first-child {
-	background-color: #ff6347;
-	color: white;
-	font-weight: bold;
+	background-color: rgba(7, 36, 124, 0.6);
+	color: rgba(255, 255, 255);
 }
 
-.rank, .user, .time {
-	padding: 0 0.5rem;
-	text-align: left;
+.leaderboard-row:nth-child(2) {
+	background-color: rgba(7, 36, 124, 0.4);
+	color: rgba(255, 255, 255);
 }
 
-.rank {
-	text-align: center;
+.leaderboard-row:nth-child(3){
+	background-color: rgba(7, 36, 124, 0.2);
+	color: rgba(0, 0, 0, 0.5);
 }
 
-.time {
-	text-align: right;
+.leader-container {
+	display: grid;
+	grid-template-columns: 1fr 1fr 1fr; /* Three equal columns */
+	text-align: center; /* Center text within each cell */
+	gap: 1rem; /* Space between columns */
 }
+

@@ -1,11 +1,12 @@
 # Pomodoro Productivity App
 
-#### Video Demo: [Insert Your YouTube URL Here]
-
-#### Description:
 The Pomodoro Productivity App is a time management tool based on the Pomodoro Technique, designed to help users manage their time more effectively by breaking work into intervals, traditionally 25 minutes in length, separated by short breaks. The app provides a full-featured experience with user authentication, task management, detailed statistics, and a leaderboard system to track the most productive users.
 
 This application allows users to **register** and **log in** to manage their personalized tasks, set Pomodoro timers, track their productivity, and compare their performance with others through a **leaderboard**. Users can see detailed statistics on their work intervals and breaks, and the **calendar** feature helps visualize daily progress.
+
+## Pomodoro App Demonstration
+![Description of the photo](https://github.com/AndrePortfolio/finance_app/blob/main/pomodoro_app.png)
+You can view the demonstration of the finance app by clicking the link below:
 
 ### Key Features:
 - **User Authentication**: Users can register and log in to create personalized accounts. Multiple users can sign up and track their individual progress.

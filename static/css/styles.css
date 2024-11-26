@@ -12,6 +12,27 @@ body {
 	background-position: center;
 }
 
+input[type="text"], input[type="password"] {
+	font-weight: normal !important;
+	font-size: larger;
+	font-family: sans-serif; /* Replace with your desired font */
+}
+
+input::placeholder {
+	font-family: sans-serif; /* Replace with your desired font */
+	font-size: large;
+	color: #888; /* Change the placeholder color */
+}
+
+.auth-container {
+	position: absolute; /* Position relative to the page */
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -60%); /* Adjust to center itself */
+	display: flex;
+	align-items: center;
+}
+
 .futura {
 	font-family: 'Futura';
 }

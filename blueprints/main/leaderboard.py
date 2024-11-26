@@ -15,21 +15,22 @@ TIMEFRAMES = ['today', 'this_week', 'this_month', 'this_year', 'all_time']
 @leaderboard_bp.route('/leaderboard', methods=['GET'])
 def show_leaderboard():
 	# Get the current timeframe from the query parameters (or default to 'today')
-	timeframe = request.args.get('timeframe', 'today')
-	action = request.args.get('action', None)  # Check if action (prev/next) is specified
-
-	print(action)
-
-	# Initialize current_index from the session, defaulting to 0 if not present
+	timeframe = request.args.get('timeframe')
 	current_index = session.get('current_index', 0)
 
-	# If action is specified (prev or next), update the current index
+	is_refresh = request.headers.get('X-Refresh') == 'true'
+	if is_refresh:
+		action = None
+	else:
+		action = request.args.get('action')
+
+	# Handle actions to move the current index (prev/next)
 	if action == 'prev':
 		current_index = (current_index - 1) % len(TIMEFRAMES)  # Wrap around with modulo
 	elif action == 'next':
 		current_index = (current_index + 1) % len(TIMEFRAMES)  # Wrap around with modulo
 
-	# Save the updated index back to the session only if it has changed
+	# Save the updated index back to the session
 	session['current_index'] = current_index
 
 	# Get the updated timeframe based on current_index
@@ -42,26 +43,31 @@ def show_leaderboard():
 def leaderboard(timeframe):
 	# Get the current date in the correct format
 	today = datetime.today()
+	message = ""
 
 	# Set start_date and end_date based on the timeframe
 	if timeframe == 'today':
 		start_date = end_date = today.strftime("%Y-%m-%d")
+		message = "Today's"
 	elif timeframe == 'this_week':
 		start_date = (datetime.now() - timedelta(days=datetime.now().weekday())).strftime("%Y-%m-%d")  # Start of the week
 		end_date = today  # End date is today
+		message = "This Week's"
 	elif timeframe == 'this_month':
 		start_date = datetime(today.year, today.month, 1).strftime("%Y-%m-%d")
 		end_date = today
+		message = f"{today.strftime('%B')}'s"
 	elif timeframe == 'this_year':
 		start_date = datetime(today.year, 1, 1).strftime("%Y-%m-%d")
 		end_date = today
+		message = f"{today.strftime('%Y')}"
 	elif timeframe == 'all_time':
 		start_date = '2000-01-01'  # Or use any appropriate earliest date
 		end_date = today
+		message = "All Time"
 	else:
-		start_date = end_date = today
-
-	print(f"Start date: {start_date}, End date: {end_date}")
+		start_date = end_date = today.strftime("%Y-%m-%d")
+		message = f"Today: {today.strftime('%B %d')}"
 
 	# Query the database for the leaderboard data within the date range
 	query = """
@@ -93,9 +99,8 @@ def leaderboard(timeframe):
 	# Limit the leaderboard data to a maximum of 10 users
 	leaderboard_data = leaderboard_data[:10]
 
-
 	# Render the leaderboard with the leaderboard data
-	return render_template("leaderboard.html", leaderboard_data=leaderboard_data)
+	return render_template("leaderboard.html", leaderboard_data=leaderboard_data, message=message)
 
 
 

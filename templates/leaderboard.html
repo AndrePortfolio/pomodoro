@@ -31,8 +31,12 @@
 			</div>
 		</div>
 		<div class="leaderboard-navigation">
-			<button class="prev-leaderboard">Previous</button>
-			<button class="next-leaderboard">Next</button>
+			<a href="{{ url_for('main.leaderboard.show_leaderboard', timeframe=timeframe, action='prev') }}">
+				<button>Prev</button>
+			</a>
+			<a href="{{ url_for('main.leaderboard.show_leaderboard', timeframe=timeframe, action='next') }}">
+				<button>Next</button>
+			</a>
 		</div>
 	</div>
 	<div class="blurred-leaderboards-left">

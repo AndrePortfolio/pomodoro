@@ -1,9 +1,11 @@
-from flask import Flask, abort
-from cs50 import SQL
-from flask_session import Session
-from blueprints.auth import auth_bp
-from blueprints.main import main_bp
-from helpers import apology
+from	flask import Flask, abort
+from	cs50 import SQL
+from	flask_session import Session
+from	blueprints.auth import auth_bp
+from	blueprints.main import main_bp
+from	helpers import apology
+import	os
+import	binascii
 
 # Initialize Flask app
 app = Flask(__name__)
@@ -14,6 +16,8 @@ Session(app)
 # Database configuration
 db = SQL("sqlite:///pomodoro.db")
 
+# Generate a secure random secret key
+secret_key = binascii.hexlify(os.urandom(24)).decode()
 
 # Register Blueprints
 app.register_blueprint(auth_bp)

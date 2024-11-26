@@ -3,14 +3,15 @@ let timerSeconds = 1500;
 let timerRunning = false;
 let sessionRunning = false;
 let timerInterval;
-let sessionLength;
+let sessionLength = 0;
 const tickTockSound = document.getElementById("ticktac-sound");
 
 // Function to change time on button click
 function changeTime(seconds)
 {
 	timerSeconds += (seconds * 60);
-
+	sessionLength += (seconds * 60);
+	
 	// Ensure timer doesn't go below 0 minutes
 	if (timerSeconds < 0)
 		timerSeconds = 0;

@@ -48,9 +48,6 @@
 	background-color: #f9f9f9;
 }
 
-/* --darkblue-color: rgba(7, 36, 124, 0.6);
---red-color: rgba(252, 74, 52, 0.9); */
-
 /* Highlight top rank */
 .leaderboard-row:first-child {
 	background-color: rgba(7, 36, 124, 0.6);

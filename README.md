@@ -34,7 +34,6 @@ You can view the demonstration of the finance app by clicking the link below: ht
 
 ### Future Enhancements:
 - **Mobile App**: I plan to expand this project into a mobile application to provide a more seamless user experience across devices.
-- **Pomodoro Customization**: Allow users to customize the duration of the work and break intervals.
 - **Social Features**: Incorporate social features such as sharing achievements or competing in challenges with other users.
 
 ### Technologies Used:

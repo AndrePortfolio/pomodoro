@@ -5,14 +5,17 @@ The Pomodoro Productivity App is a time management tool based on the Pomodoro Te
 This application allows users to **register** and **log in** to manage their personalized tasks, set Pomodoro timers, track their productivity, and compare their performance with others through a **leaderboard**. Users can see detailed statistics on their work intervals and breaks, and the **calendar** feature helps visualize daily progress.
 
 ## Pomodoro App Demonstration
-![Description of the photo](https://github.com/AndrePortfolio/pomodoro/blob/main/images/statistics.png)
 You can view the demonstration of the finance app by clicking the link below: https://youtu.be/FS-YmiKhZa4
 
 ### Key Features:
 - **User Authentication**: Users can register and log in to create personalized accounts. Multiple users can sign up and track their individual progress.
+- - ![Description of the photo](https://github.com/AndrePortfolio/pomodoro/blob/main/images/homepage.png)
 - **Pomodoro Timer**: The main feature is the Pomodoro timer, which allows users to work in focused intervals and take short breaks in between.
+- - ![Description of the photo](https://github.com/AndrePortfolio/pomodoro/blob/main/images/statistics.png)
 - **Statistics**: The app tracks the total number of Pomodoros completed, total work time, and provides other key statistics for each user. This data can be viewed on the dashboard.
+- - ![Description of the photo](https://github.com/AndrePortfolio/pomodoro/blob/main/images/leaderboard.png)
 - **Leaderboard**: A dynamic leaderboard displays the most productive users based on the number of Pomodoros completed, motivating users to improve their productivity.
+- - ![Description of the photo](https://github.com/AndrePortfolio/pomodoro/blob/main/images/calendar.png)
 - **Calendar**: A built-in calendar feature allows users to see their progress over time, marking the days they worked and providing a historical overview of their performance.
 
 ### File Breakdown:
